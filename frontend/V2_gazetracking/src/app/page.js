@@ -10,6 +10,11 @@ export default function Home() {
   const [clickCounts, setClickCounts] = useState(Array(9).fill(0));
 
   useEffect(() => {
+    const isCalibrationDone = localStorage.getItem("webgazerCalibrationDone");
+
+    
+    if (!isCalibrationDone) {
+      //WebGazer.saveDataAcrossSessions = true;
     setCalibrationPoints([
       { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
       { x: window.innerWidth * 0.1, y: window.innerHeight * 0.1 },
@@ -22,8 +27,18 @@ export default function Home() {
       { x: window.innerWidth * 0.9, y: window.innerHeight * 0.5 },
     ]);
     console.log("WebGazer loaded");
+
+    //test
+    const gazeListener = (data) => {
+      if (data) {
+        console.log(data);
+      }
+      else console.log("no data?")
+    };
+
+
     WebGazer.setRegression("ridge")
-      .setGazeListener((data, clock) => {})
+      .setGazeListener((data, clock) => {}) //test
       .saveDataAcrossSessions(true)
       .applyKalmanFilter(true)
       .showPredictionPoints(true)
@@ -32,6 +47,17 @@ export default function Home() {
 
     window.saveDataAcrossSessions = true;
 
+  } else {
+    console.log("Calibration already completed. Skipping calibration steps.");
+    WebGazer.setRegression("ridge")
+      .setGazeListener((data, clock) => {})
+      .saveDataAcrossSessions(true)
+      .applyKalmanFilter(true)
+      .showPredictionPoints(true)
+      .showVideoPreview(false)
+      .begin();
+  }
+
     return () => {
       WebGazer.end();
     };
@@ -39,11 +65,11 @@ export default function Home() {
 
   const handleCalibrationClick = (pointIndex) => {
     if (clickCounts[pointIndex] < 5) {
-      WebGazer.recordScreenPosition(
-        calibrationPoints[pointIndex].x,
-        calibrationPoints[pointIndex].y,
-        "click"
-      );
+      // WebGazer.recordScreenPosition(
+      //   calibrationPoints[pointIndex].x,
+      //   calibrationPoints[pointIndex].y,
+      //   "click"
+      // );
       // WebGazer.params.storingPoints = true;
       setClickCounts((prevCounts) => {
         const newCounts = [...prevCounts];
@@ -55,6 +81,7 @@ export default function Home() {
     if (clickCounts.every((count) => count >= 5)) {
       console.log("Calibration completed");
       setCalibrating(false);
+      localStorage.setItem("webgazerCalibrationDone", "true"); // Save the calibration completion flag
       calculateAccuracy();
     } else {
       setCalibrationStep(
@@ -68,6 +95,14 @@ export default function Home() {
     const accuracy = calculatePrecision(past50Points);
     alert(`Độ chính xác của bạn là ${accuracy}%`);
   };
+
+  if (!isCalibrating) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "20%" }}>
+        <h1>Hello?</h1>
+      </div>
+    );
+  }
 
   return (
     <div style={{ textAlign: "center", marginTop: "20%" }}>
