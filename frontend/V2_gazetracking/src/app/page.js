@@ -3,16 +3,25 @@
 import { useEffect, useState } from "react";
 import WebGazer from "webgazer";
 import localforage from "localforage";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [isCalibrating, setCalibrating] = useState(true);
-  const [calibrationStep, setCalibrationStep] = useState(0);
+  //const [calibrationStep, setCalibrationStep] = useState(0);
   const [calibrationPoints, setCalibrationPoints] = useState([]);
   const [clickCounts, setClickCounts] = useState(Array(9).fill(0));
 
   useEffect(() => {
     const isCalibrationDone = localStorage.getItem("webgazerCalibrationDone");
     console.log(isCalibrationDone);
+
+    if (isCalibrationDone) {
+      console.log("Calibration already completed. Redirecting to homescreen.");
+      router.push("/homescreen"); // Redirect to homescreen
+      return; // Prevent further execution
+    }
+
     if (!isCalibrationDone) {
       //WebGazer.saveDataAcrossSessions = true;
       setCalibrationPoints([
@@ -65,7 +74,7 @@ export default function Home() {
     }
 
     return () => {
-      WebGazer.end();
+      //WebGazer.end();
     };
   }, [isCalibrating]);
 
@@ -82,6 +91,7 @@ export default function Home() {
       console.log("Calibration completed");
       setCalibrating(false);
       localStorage.setItem("webgazerCalibrationDone", "true"); // Save the calibration completion flag
+      router.push("/homescreen");
     } else {
       setCalibrationStep(
         (prevStep) => (prevStep + 1) % calibrationPoints.length
@@ -89,13 +99,13 @@ export default function Home() {
     }
   };
 
-  if (!isCalibrating) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "20%" }}>
-        <h1>Hello?</h1>
-      </div>
-    );
-  }
+  // if (!isCalibrating) {
+  //   return (
+  //     <div style={{ textAlign: "center", marginTop: "20%" }}>
+  //       <h1>Hello?</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
