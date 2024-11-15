@@ -1,17 +1,17 @@
 import "@/styles/global.css";
-import { useState, useEffect } from "react";
-import useWebGazer from "@/hooks/useWebGazer";
+import dynamic from "next/dynamic";
+
+// Chỉ import WebGazerWrapper trên client-side
+const WebGazerWrapper = dynamic(() => import("@/components/webGazerWrapper"), {
+  ssr: false,
+});
 
 function MyApp({ Component, pageProps }) {
-  const [gazeData, setGazeData] = useState(null);
-
-  useWebGazer((data) => {
-    if (data) {
-      setGazeData(data);
-    }
-  });
-
-  return <Component {...pageProps} gazeData={gazeData} />;
+  return (
+    <WebGazerWrapper>
+      <Component {...pageProps} />
+    </WebGazerWrapper>
+  );
 }
 
 export default MyApp;

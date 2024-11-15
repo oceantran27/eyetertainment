@@ -1,6 +1,7 @@
 // src/pages/calibration.js
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { pauseWebGazer, resumeWebGazer } from "@/components/webGazerWrapper";
 
 export default function Calibration() {
   const router = useRouter();
@@ -19,30 +20,9 @@ export default function Calibration() {
       { x: window.innerWidth * 0.5, y: window.innerHeight * 0.93 },
       { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
     ]);
-    // const startCalibration = async () => {
-    //   const webgazer = window.webgazer;
-    //   console.log("webgazer", webgazer);
 
-    //   if (webgazer) {
-    //     webgazer.clearData();
-    //     await webgazer.begin();
-
-    //     console.log(
-    //       "Bắt đầu hiệu chuẩn, vui lòng click vào các điểm trên màn hình."
-    //     );
-    //   }
-    // };
-
-    // startCalibration();
-
-    // Cleanup khi unmount
-    return () => {
-      // if (window.webgazer) {
-      //   window.webgazer.saveDataAcrossSessions(true);
-      //   window.webgazer.end();
-      //   console.log("Kết thúc hiệu chuẩn.");
-      // }
-    };
+    resumeWebGazer();
+    return () => pauseWebGazer();
   }, []);
 
   const handleCalibrationClick = (pointIndex) => {
