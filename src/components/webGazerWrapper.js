@@ -7,6 +7,9 @@ let webgazerInstance = null;
 const WebGazerWrapper = ({ children }) => {
   const webGazerSettings = async (webgazerInstance) => {
     // Cấu hình WebGazer
+    await webgazerInstance.showVideoPreview(false);
+    await webgazerInstance.showFaceOverlay(false);
+    await webgazerInstance.showFaceFeedbackBox(false);
     webgazerInstance.setRegression("ridge");
     webgazerInstance.setTracker("TFFaceMesh");
     webgazerInstance.saveDataAcrossSessions(true);
