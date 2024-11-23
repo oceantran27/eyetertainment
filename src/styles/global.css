@@ -29,3 +29,9 @@ body {
 .blue_gradient {
   @apply bg-gradient-to-r from-[#aac7ff] to-cyan-500 bg-clip-text text-transparent;
 }
+
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

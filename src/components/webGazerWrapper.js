@@ -1,14 +1,18 @@
 import localforage from "localforage";
 import { useEffect } from "react";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 let webgazerInstance = null;
 
 const WebGazerWrapper = ({ children }) => {
+  const router = useRouter();
+
   const webGazerSettings = async (webgazerInstance) => {
-    // Cấu hình WebGazer
+    await webgazerInstance.showVideoPreview(false);
+    await webgazerInstance.showFaceOverlay(false);
+    await webgazerInstance.showFaceFeedbackBox(false);
     webgazerInstance.setRegression("ridge");
-    webgazerInstance.setTracker("TFFaceMesh");
+    webgazerInstance.setTracker("clmtrackr");
     webgazerInstance.saveDataAcrossSessions(true);
     webgazerInstance.setCameraConstraints({
       video: {

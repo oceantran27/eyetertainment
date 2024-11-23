@@ -15,6 +15,7 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "black-opacity-30": "rgba(0, 0, 0, 0.3)",
       },
     },
   },
