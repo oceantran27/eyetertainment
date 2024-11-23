@@ -1,4 +1,5 @@
 import "@/styles/global.css";
+import Login from "@/ui/Login";
 import dynamic from "next/dynamic";
 
 // Chỉ import WebGazerWrapper trên client-side
@@ -8,9 +9,10 @@ const WebGazerWrapper = dynamic(() => import("@/components/webGazerWrapper"), {
 
 function MyApp({ Component, pageProps }) {
   return (
-    <WebGazerWrapper>
+    //<WebGazerWrapper>
       <Component {...pageProps} />
-    </WebGazerWrapper>
+    //</WebGazerWrapper>
+
   );
 }
 
