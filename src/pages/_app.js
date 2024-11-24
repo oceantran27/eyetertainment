@@ -1,18 +1,11 @@
+import { GazeDataProvider } from "@/hooks/GazeContext";
 import "@/styles/global.css";
-import Login from "@/ui/Login";
-import dynamic from "next/dynamic";
-
-// Chỉ import WebGazerWrapper trên client-side
-const WebGazerWrapper = dynamic(() => import("@/components/webGazerWrapper"), {
-  ssr: false,
-});
 
 function MyApp({ Component, pageProps }) {
   return (
-    //<WebGazerWrapper>
+    <GazeDataProvider>
       <Component {...pageProps} />
-    //</WebGazerWrapper>
-
+    </GazeDataProvider>
   );
 }
 
