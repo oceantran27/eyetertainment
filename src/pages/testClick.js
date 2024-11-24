@@ -1,9 +1,4 @@
 import { useEffect, useState } from "react";
-import {
-  resumeWebGazer,
-  pauseWebGazer,
-  setGazeListenerCallback,
-} from "@/components/webGazerWrapper";
 
 const FocusCard = () => {
   const [isLooking, setIsLooking] = useState(false);
@@ -17,8 +12,6 @@ const FocusCard = () => {
   };
 
   useEffect(() => {
-    resumeWebGazer();
-
     setGazeListenerCallback((gazeData) => {
       if (gazeData && gazeData.x !== null && gazeData.y !== null) {
         const { x, y } = gazeData;
@@ -38,9 +31,7 @@ const FocusCard = () => {
       }
     });
 
-    return () => {
-      pauseWebGazer();
-    };
+    return () => {};
   }, []);
 
   useEffect(() => {
