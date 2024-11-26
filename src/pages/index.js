@@ -10,9 +10,9 @@ export default function Home() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    resumeWebGazer();
+    // resumeWebGazer();
     fetchBooks();
-    return () => pauseWebGazer();
+    // return () => pauseWebGazer();
   }, []);
 
   // Cai nay goi appi
