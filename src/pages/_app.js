@@ -1,17 +1,22 @@
+
 import "@/styles/global.css";
 import dynamic from "next/dynamic";
 
 // Chỉ import WebGazerWrapper trên client-side
 const WebGazerWrapper = dynamic(() => import("@/components/webGazerWrapper"), {
-  ssr: false,
+ssr: false,
 });
 
+// function MyApp({ Component, pageProps }) {
+// return (
+// <WebGazerWrapper>
+// <Component {...pageProps} />
+// </WebGazerWrapper>
+// );
+// }
+
 function MyApp({ Component, pageProps }) {
-  return (
-    <WebGazerWrapper>
-      <Component {...pageProps} />
-    </WebGazerWrapper>
-  );
+return <Component {...pageProps} />;
 }
 
 export default MyApp;
