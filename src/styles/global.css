@@ -59,3 +59,9 @@ body {
 .btn-category {
   @apply bg-[#aac7ff] text-white py-5 px-4 rounded-lg text-center hover:bg-[#6495ed] transition duration-300 font-bold;
 }
+
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
