@@ -1,18 +1,21 @@
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function Register() {
-  const [image, setImage] = useState(null);
+    const router = useRouter();
+    const [image, setImage] = useState(null);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(URL.createObjectURL(file));  // display image
-    }
-  };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+        setImage(URL.createObjectURL(file));  // display image
+        }
+    };
 
   const handleUpload = () => {
     if (image) {
       // Upload image to server
+        router.push('/login');  // redirect to login page
     } else {
       alert('Please select an image to upload');
     }

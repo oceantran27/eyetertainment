@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+export const metadata = {
+  title: 'Play | Quiz | Eyetertainment',
+};
+
 const QuizDetailPage = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -9,6 +13,10 @@ const QuizDetailPage = () => {
   const { query } = useRouter();
   const { setId } = query;
   const router = useRouter();
+
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
 
   useEffect(() => {
     if (setId) {

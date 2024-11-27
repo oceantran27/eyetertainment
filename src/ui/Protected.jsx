@@ -17,10 +17,10 @@ function Protected() {
     }, []);
 
     useEffect(() => {
-        // if (counter === 0) {
-        //     router.push("/dashboard");
-        //     return;
-        // }
+        if (counter === 0) {
+            router.push("/dashboard");
+            return;
+        }
 
         const timer = setTimeout(() => {
             setCounter(counter - 1);

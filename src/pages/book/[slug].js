@@ -4,12 +4,20 @@ import axios from 'axios';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 
+export const metadata = {
+  title: 'Book | Reading | Eyetertainment',
+};
+
 export default function BookDetail() {
   const router = useRouter();
   const { slug } = router.query;
   const [book, setBook] = useState(null);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const chaptersPerPage = 5;
+
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
 
   useEffect(() => {
     if (slug) {

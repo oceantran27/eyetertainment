@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 
+export const metadata = {
+  title: 'Quiz | Eyetertainment',
+};
+
 const QuizPage = () => {
   const [quizSets, setQuizSets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,6 +13,7 @@ const QuizPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    document.title = metadata.title;
     const fetchQuizSets = async () => {
       const response = await fetch('/api/quiz');
       const data = await response.json();

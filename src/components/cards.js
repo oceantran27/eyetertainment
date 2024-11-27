@@ -9,7 +9,7 @@ import Link from 'next/link';
 
   const targetUrl = {
     quiz: "/quiz",
-    reading: "/reading",
+    reading: "/bookslist",
     game: "/game",
   }
   

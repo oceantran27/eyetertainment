@@ -3,8 +3,16 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion'; // Import Framer Motion để thêm animation
 
+export const metadata = {
+  title: 'Read | Book | Reading | Eyetertainment',
+};
+
 function LazyImage({ src, alt, className }) {
   const imgRef = useRef();
+
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

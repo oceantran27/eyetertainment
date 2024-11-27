@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -47,13 +48,6 @@ function Login() {
     },
   ];
 
-  // const location = useLocation();
-  // const navigate = useNavigate();
-
-  // if (!location?.state) {
-  //   return <Navigate to="/" replace={true} />;
-  // }
-
   const loadModels = async () => {
     // const uri = import.meta.env.DEV ? "/models" : "/react-face-auth/models";
     const uri = "/models";
@@ -66,7 +60,7 @@ function Login() {
   };
 
   useEffect(() => {
-    setTempAccount(accounts[3]);
+    setTempAccount(accounts[4]);
   }, []);
 
   useEffect(() => {
@@ -198,14 +192,24 @@ function Login() {
   if (imageError) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-[24px] max-w-[840px] mx-auto">
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-rose-700 sm:text-4xl">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#ffb4ab] sm:text-4xl">
           <span className="block">
             Upps! There is no profile picture associated with this account.
           </span>
         </h2>
-        <span className="block mt-4">
+        <span className="block mt-4 text-[#e2e2e9] text-2xl">
           Please contact administration for registration or try again later.
         </span>
+        <Link href="/register">
+          <div className="rounded-xl p-2">
+            <button
+              type="button"
+              className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-lg text-[#112f60] bg-[#adc6ff] hover:bg-[#2b4678] hover:text-[#d8e2ff] rounded-lg "
+            >
+              Register
+            </button>
+          </div>
+        </Link>
       </div>
     );
   }
