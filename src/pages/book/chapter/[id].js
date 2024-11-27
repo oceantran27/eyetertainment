@@ -110,7 +110,7 @@ export default function ChapterDetail() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="flex justify-center items-center h-screen">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -118,24 +118,24 @@ export default function ChapterDetail() {
           className="flex flex-col items-center space-y-4"
         >
           <motion.div
-            className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
+            className="w-16 h-16 border-4 border-[#adc6ff] border-t-transparent rounded-full"
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
           ></motion.div>
-          <p className="text-lg font-semibold text-gray-700">Đang tải dữ liệu...</p>
+          <p className="text-lg font-semibold text-[#adc6ff]">Đang tải dữ liệu...</p>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="relative flex justify-center items-center h-screen bg-gradient-to-br from-gray-100 to-gray-300">
+    <div className="relative flex justify-center items-center h-screen">
       {/* Hiển thị tiêu đề chương */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-4 text-2xl font-bold text-center text-gray-800"
+        className="absolute top-4 text-2xl font-bold text-center text-[#e2e2e9]"
       >
         {chapterTitle}
       </motion.h1>
@@ -146,7 +146,7 @@ export default function ChapterDetail() {
         whileTap={{ scale: 0.9 }}
         onClick={handlePreviousPage}
         disabled={currentPage === 0}
-        className={`absolute left-10 bg-blue-500 text-white p-6 rounded-full shadow transition-transform duration-200 ${
+        className={`z-10 absolute left-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
           currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'
         }`}
         style={{ width: '80px', height: '80px' }}
@@ -184,7 +184,7 @@ export default function ChapterDetail() {
         whileTap={{ scale: 0.9 }}
         onClick={handleNextPage}
         disabled={currentPage >= chapterImages.length - 3}
-        className={`absolute right-10 bg-blue-500 text-white p-6 rounded-full shadow transition-transform duration-200 ${
+        className={`absolute right-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
           currentPage >= chapterImages.length - 3
             ? 'opacity-50 cursor-not-allowed'
             : 'hover:scale-110'
@@ -199,7 +199,7 @@ export default function ChapterDetail() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
-        className="absolute top-4 right-10 bg-blue-500 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg"
+        className="absolute top-4 right-10 bg-[#bfc6dc] text-[#293041] w-14 h-14 flex items-center justify-center rounded-full shadow-lg"
       >
         <span className="text-lg font-bold">
           {Math.ceil(currentPage / 3) + 1}
@@ -211,7 +211,7 @@ export default function ChapterDetail() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => router.back()}
-        className="absolute bottom-10 left-10 bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 shadow-lg"
+        className="absolute bottom-10 left-10 bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
       >
         Quay lại
       </motion.button>

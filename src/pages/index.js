@@ -40,10 +40,10 @@ export default function Home() {
     <div className="container mx-auto p-6 flex flex-col items-center justify-center h-screen">
       {/* Day la Welcome */}
       <h1
-        className="text-6xl font-bold text-center mb-16"
+        className="text-6xl font-bold text-center mb-16 text-[#e2e2e9]"
         style={{ marginTop: "-20px" }}
       >
-        Welcome to <span className="blue_gradient">Eye Reader</span>
+        Welcome to <span className="text-[#adc6ff]">Eye Reader</span>
       </h1>
 
       {/* Thanh tim kiem */}
@@ -63,9 +63,9 @@ export default function Home() {
         <button
           onClick={goToPrevious}
           disabled={currentIndex === 0}
-          className={`p-10 rounded-full bg-[#aac7ff] text-white text-5xl shadow-lg ${
+          className={`p-10 rounded-full bg-[#1e1f25] text-white  text-5xl shadow-lg ${
             currentIndex === 0 ? "opacity-50 cursor-not-allowed" : ""
-          } active:bg-[#6495ed]`}
+          } active:bg-[#37393e]`}
         >
           <AiOutlineLeft />
         </button>
@@ -82,7 +82,7 @@ export default function Home() {
             .map((book, index) => (
               <div
                 key={index}
-                className="bg-white text-black rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
+                className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
                 style={{ width: "260px", height: "380px" }}
               >
                 <img
@@ -101,11 +101,11 @@ export default function Home() {
         <button
           onClick={goToNext}
           disabled={currentIndex + booksPerPage >= books.length}
-          className={`p-10 rounded-full bg-[#aac7ff] text-white text-5xl shadow-lg ${
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${
             currentIndex + booksPerPage >= books.length
               ? "opacity-50 cursor-not-allowed"
               : ""
-          } active:bg-[#6495ed]`}
+          } active:bg-[#37393e]`}
         >
           <AiOutlineRight />
         </button>

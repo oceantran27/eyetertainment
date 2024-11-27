@@ -19,7 +19,7 @@ body {
 }
 
 .blue_gradient {
-  @apply bg-gradient-to-r from-[#aac7ff] to-cyan-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-[#adc6ff] to-[#adc6ff] bg-clip-text text-transparent;
 }
 .story-item {
   display: flex;
@@ -49,7 +49,7 @@ body {
 }
 
 .btn-category {
-  @apply bg-[#aac7ff] text-white py-5 px-4 rounded-lg text-center hover:bg-[#6495ed] transition duration-300 font-bold;
+  @apply py-5 px-4 rounded-lg text-center transition duration-300 font-bold;
 }
 
 html,

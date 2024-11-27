@@ -213,39 +213,39 @@ function Login() {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-[24px] max-w-[720px] mx-auto">
       {!localUserStream && !modelsLoaded && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 pt-10 sm:text-4xl">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] pt-10 sm:text-4xl">
           <span className="block">
-            You're Attempting to Log In With Your Face.
+            You're Attempting to Log In With Your Face
           </span>
-          <span className="block text-indigo-600 mt-2">Loading Models...</span>
+          <span className="block text-[#adc6ff] mt-2">Loading Models...</span>
         </h2>
       )}
       {!localUserStream && modelsLoaded && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 pt-10 sm:text-4xl">
-          <span className="block text-indigo-600 mt-2">
-            Please Recognize Your Face to Completely Log In.
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] pt-10 sm:text-4xl">
+          <span className="block text-[#adc6ff] mt-2">
+            Please Recognize Your Face to Completely Log In
           </span>
         </h2>
       )}
       {localUserStream && loginResult === "SUCCESS" && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          <span className="block text-indigo-600 mt-2">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl">
+          <span className="block text-[#adc6ff] mt-2">
             We've successfully recognize your face!
           </span>
-          <span className="block text-indigo-600 mt-2">
+          <span className="block text-[#adc6ff] mt-2">
             Please stay {counter} more seconds...
           </span>
         </h2>
       )}
       {localUserStream && loginResult === "FAILED" && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-rose-700 sm:text-4xl">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#ffb4ab] sm:text-4xl">
           <span className="block mt-[56px]">
-            Upps! We did not recognize your face.
+            Oops! We did not recognize your face
           </span>
         </h2>
       )}
       {localUserStream && !faceApiLoaded && loginResult === "PENDING" && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl">
           <span className="block mt-[56px]">Scanning Face...</span>
         </h2>
       )}
@@ -279,13 +279,13 @@ function Login() {
               <>
                 <img
                   alt="loading models"
-                  src="/image/auth-face.png"
-                  className="cursor-pointer my-8 mx-auto object-cover h-[272px]"
+                  src="/images/auth-face.png"
+                  className="cursor-pointer my-8 mx-auto object-cover h-[300px]"
                 />
                 <button
                   onClick={getLocalUserVideo}
                   type="button"
-                  className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg border border-gray-200 "
+                  className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-lg text-[#112f60] bg-[#adc6ff] hover:bg-[#2b4678] hover:text-[#d8e2ff] rounded-lg "
                 >
                   Scan my face
                 </button>
@@ -294,18 +294,18 @@ function Login() {
               <>
                 <img
                   alt="loading models"
-                  src="/image/auth-idle.png"
-                  className="cursor-pointer my-8 mx-auto object-cover h-[272px]"
+                  src="/images/auth-idle.png"
+                  className="cursor-pointer my-8 mx-auto object-cover h-[300px]"
                 />
                 <button
                   disabled
                   type="button"
-                  className="cursor-not-allowed flex justify-center items-center w-full py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 "
+                  className="cursor-not-allowed flex justify-center items-center w-full py-2.5 px-5 text-lg text-[#112f60] bg-[#adc6ff] rounded-lg hover:bg-[#2b4678] hover:text-[#d8e2ff]"
                 >
                   <svg
                     aria-hidden="true"
                     role="status"
-                    className="inline mr-2 w-4 h-4 text-gray-200 animate-spin"
+                    className="inline mr-2 w-4 h-4 text-[#112f60] bg-[#adc6ff] animate-spin"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"

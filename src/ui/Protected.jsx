@@ -17,10 +17,10 @@ function Protected() {
     }, []);
 
     useEffect(() => {
-        if (counter === 0) {
-            router.push("/dashboard");
-            return;
-        }
+        // if (counter === 0) {
+        //     router.push("/dashboard");
+        //     return;
+        // }
 
         const timer = setTimeout(() => {
             setCounter(counter - 1);
@@ -34,13 +34,13 @@ function Protected() {
     }
 
     return (
-        <div className="bg-white pt-20 md:pt-16">
+        <div className="pt-20 md:pt-16">
             <div className="mx-auto max-w-7xl">
-                <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mb-2">
+                <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl mb-2">
                     You have successfully logged in!
                 </h2>
-                <div className="text-center text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl mb-12">
-                    <span className="block text-indigo-600">
+                <div className="text-center text-xl font-extrabold tracking-tight text-[#adc6ff] sm:text-2xl mb-12">
+                    <span className="block text-[#adc6ff]">
                         Auto Redirect to Dashboard in {counter} seconds...
                     </span>
                 </div>
@@ -58,7 +58,7 @@ function Protected() {
                         alt={account.fullName}
                     />
                     <h1
-                        className="block text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800"
+                        className="block text-4xl tracking-tight font-extrabold bg-[#ffffff] sm:text-5xl md:text-6xl bg-clip-text text-transparent"
                         style={{
                             lineHeight: "1.5",
                         }}
@@ -70,15 +70,15 @@ function Protected() {
                             localStorage.removeItem("faceAuth");
                             router.push("/");
                         }}
-                        className="flex gap-2 mt-12 w-fit mx-auto cursor-pointer z-10 py-3 px-6 rounded-full bg-gradient-to-r from-red-400 to-red-600"
+                        className="flex gap-2 mt-12 w-fit mx-auto cursor-pointer z-10 py-3 px-6 rounded-full bg-[#debcdf]"
                     >
-                        <span className="text-white">Log Out</span>
+                        <span className="text-[#402843]">Log Out</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
-                            stroke="white"
+                            stroke="#402843"
                             className="w-6 h-6"
                         >
                             <path
