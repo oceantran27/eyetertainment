@@ -3,12 +3,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
+export const metadata = {
+  title: 'Search Book | Eyetertainment',
+};
+
+
 const Search = () => {
     const router = useRouter();
     const { keyword } = router.query;
     const [books, setBooks] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+      document.title = metadata.title;
+    }, []);
 
   useEffect(() => {
     if (keyword) {

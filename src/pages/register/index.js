@@ -1,9 +1,8 @@
-// import Carousel from "../../components/Carousel";
 import { useEffect } from "react";
-import HomePage from "@/ui/Homepage";
+import Register from "@/ui/Register";
 
 export const metadata = {
-  title: 'Home | Eyetertainment',
+  title: 'Register | Eyetertainment',
 };
 
 export default function Home() {
@@ -12,6 +11,6 @@ export default function Home() {
   }, []);
 
   return (
-    <HomePage />
+    <Register />
   );
 }

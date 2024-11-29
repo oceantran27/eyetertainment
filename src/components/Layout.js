@@ -15,7 +15,7 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-6xl font-bold text-center mb-16 animate-gradient bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"
+        className="text-6xl font-bold text-center mb-16 animate-gradient bg-gradient-to-r from-[#d9d9e0] via-[#f9f9ff] to-[#f9f9ff] bg-clip-text text-transparent"
       >
         Welcome to <span className="blue_gradient">Eye Reader</span>
       </motion.h1>
@@ -28,7 +28,7 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-xl text-red-500 mb-8"
+          className="text-center text-xl text-[#ffb4ab] mb-8"
         >
           {message}
         </motion.div>
@@ -51,7 +51,7 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
               whileTap={{ scale: 0.9 }}
               onClick={goToPrevious}
               disabled={currentIndex === 0}
-              className={`p-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
+              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
             >
               <AiOutlineLeft />
             </motion.button>
@@ -69,7 +69,7 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
               {books.slice(currentIndex, currentIndex + booksPerPage).map((book, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white text-black rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+                  className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
                   style={{ width: '260px', height: '380px' }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -103,16 +103,16 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
               whileTap={{ scale: 0.9 }}
               onClick={goToNext}
               disabled={currentIndex + booksPerPage >= books.length}
-              className={`p-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
+              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
             >
               <AiOutlineRight />
             </motion.button>
           </motion.div>
           
           {/* Thanh tiến trình */}
-          <div className="w-full bg-gray-300 rounded-full h-4 my-4">
+          <div className="w-full bg-[#44474f] rounded-full h-4 my-4">
             <div
-              className="bg-blue-500 h-4 rounded-full transition-width duration-300"
+              className="bg-[#adc6ff] h-4 rounded-full transition-width duration-300"
               style={{ width: `${(currentPage / totalPages) * 100}%` }}
             ></div>
           </div>

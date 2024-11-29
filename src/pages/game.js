@@ -5,10 +5,19 @@ import FlappyBird from "@/components/flappyBirdGame";
 import Menja from "@/components/menjaGame";
 import styles from "@/styles/game.module.css";
 import RootLayout from "@/layouts/rootLayout";
+import { useEffect } from "react";
+
+export const metadata = {
+  title: 'Game | Eyetertainment',
+};
 
 const Game = () => {
   const [selectedGame, setSelectedGame] = useState(null);
 
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
+  
   const customButtonProps = {
     left: {
       onClick: () => handleOnClickBack(),

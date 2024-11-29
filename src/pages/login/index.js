@@ -1,17 +1,17 @@
-// import Carousel from "../../components/Carousel";
 import { useEffect } from "react";
-import HomePage from "@/ui/Homepage";
+import Login from "@/ui/Login";
 
 export const metadata = {
-  title: 'Home | Eyetertainment',
+  title: 'Login | Eyetertainment',
 };
 
 export default function Home() {
+
   useEffect(() => {
     document.title = metadata.title;
   }, []);
-
+  
   return (
-    <HomePage />
+    <Login />
   );
 }
