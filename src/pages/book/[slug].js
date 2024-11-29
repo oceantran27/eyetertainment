@@ -4,12 +4,20 @@ import axios from 'axios';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 
+export const metadata = {
+  title: 'Book | Reading | Eyetertainment',
+};
+
 export default function BookDetail() {
   const router = useRouter();
   const { slug } = router.query;
   const [book, setBook] = useState(null);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const chaptersPerPage = 5;
+
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
 
   useEffect(() => {
     if (slug) {
@@ -67,7 +75,7 @@ export default function BookDetail() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex items-start space-x-6 mb-6">
+      <div className="flex items-start space-x-6 my-6">
         <img
           src={`https://otruyenapi.com/uploads/comics/${book.thumb_url}`}
           alt={book.name}
@@ -75,8 +83,8 @@ export default function BookDetail() {
         />
 
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-4">{book.name}</h1>
-          <p className="text-lg text-gray-600 mb-6" style={{ fontSize: '30px', lineHeight: '1.5' }}>
+          <h1 className="text-3xl font-bold mb-4 text-[#e2e2e9]">{book.name}</h1>
+          <p className="text-lg text-[#adc6ff] mb-6" >
             {cleanContent(book.content) || 'Không có mô tả.'}
           </p>
         </div>
@@ -89,8 +97,8 @@ export default function BookDetail() {
           whileTap={{ scale: 0.9 }}
           onClick={handlePrevious}
           disabled={currentChapterIndex === 0}
-          className={`absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 text-white p-4 rounded-full shadow-lg ${
-            currentChapterIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-400'
+          className={`absolute left-0 inset-y-16 transform bg-[#1e1f25] text-white  p-4 rounded-full shadow-lg ${
+            currentChapterIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:[#37393e]'
           }`}
           style={{ width: '60px', height: '60px' }}
         >
@@ -113,7 +121,7 @@ export default function BookDetail() {
               key={index}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm flex items-center justify-center shadow-lg"
+              className="bg-[#debcdf] text-[#402843] rounded-lg hover:bg-[#583e5b] hover:text-[#fcd7fb] text-3xl flex items-center justify-center shadow-lg"
               style={{
                 aspectRatio: '1',
               }}
@@ -133,10 +141,10 @@ export default function BookDetail() {
           whileTap={{ scale: 0.9 }}
           onClick={handleNext}
           disabled={currentChapterIndex + chaptersPerPage >= chapters.length}
-          className={`absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 text-white p-4 rounded-full shadow-lg ${
+          className={`absolute right-0 inset-y-16 transform bg-[#1e1f25] text-white p-4 rounded-full shadow-lg ${
             currentChapterIndex + chaptersPerPage >= chapters.length
               ? 'opacity-50 cursor-not-allowed'
-              : 'hover:bg-gray-400'
+              : 'hover:bg-[#37393e]'
           }`}
           style={{ width: '60px', height: '60px' }}
         >
@@ -150,7 +158,7 @@ export default function BookDetail() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => router.back()}
-          className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 shadow-lg"
+          className="bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
           style={{ width: '200px', height: '60px' }}
         >
           Quay lại

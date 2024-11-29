@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 
+export const metadata = {
+  title: 'Quiz | Eyetertainment',
+};
+
 const QuizPage = () => {
   const [quizSets, setQuizSets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,6 +13,7 @@ const QuizPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    document.title = metadata.title;
     const fetchQuizSets = async () => {
       const response = await fetch('/api/quiz');
       const data = await response.json();
@@ -53,15 +58,15 @@ const QuizPage = () => {
     <div className="container mx-auto p-6 flex flex-col items-center justify-center h-screen">
       <div className="font-sans p-8">
         {/* Heading */}
-        <h1 className="text-6xl font-bold text-center mb-16">QUIZ</h1>
+        <h1 className="text-6xl font-bold text-center mb-16 text-[#e2e2e9]">QUIZ</h1>
 
         {/* Cac button chon category */}
-        <div className="grid grid-cols-4 gap-10 place-items-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-4 gap-10 place-items-center max-w-5xl mx-auto ">
         {['General Knowledge', 'Books', 'Science & Nature', 'Sports', 'Film', 'Music', 'Animals', 'Animation'].map((category) => (
             <button
             key={category}
             onClick={() => handleCategoryClick(category)}
-            className="btn-category w-48"
+            className="btn-category w-48 bg-[#debcdf] text-[#402843] hover:bg-[#583e5b] hover:text-[#fcd7fb]"
             >
             {category}
             </button>
@@ -75,8 +80,8 @@ const QuizPage = () => {
         <button
             onClick={() => handlePageChange('prev')}
             disabled={currentPage === 1}
-            className={`p-10 rounded-full bg-[#aac7ff] text-white text-5xl shadow-lg ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-            }active:bg-[#6495ed]`}
+            className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+            }active:bg-[#37393e]`}
             style={{ marginRight: '50px' }}
         >
             <AiOutlineLeft />
@@ -92,7 +97,7 @@ const QuizPage = () => {
             <div 
                 key={set.set_id} 
                 onClick={() => handleCardClick(set.set_id)}
-                className="bg-white text-black rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
+                className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
                 style={{ width: '260px', height: '380px' }}
             >
                 <div className="relative w-full h-2/3">
@@ -112,8 +117,8 @@ const QuizPage = () => {
         <button
             onClick={() => handlePageChange('next')}
             disabled={currentPage === totalPages}
-            className={`p-10 rounded-full bg-[#aac7ff] text-white text-5xl shadow-lg ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-            }active:bg-[#6495ed]`}
+            className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+            }active:bg-[#37393e]`}
             style={{ marginLeft: '50px' }}
         >
             <AiOutlineRight />

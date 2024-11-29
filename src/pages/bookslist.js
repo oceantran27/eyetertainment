@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "@/components/Layout";
 
+export const metadata = {
+  title: 'Reading | Eyetertainment',
+};
+
 export default function BooksList() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const booksPerPage = 4;
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
+    document.title = metadata.title;
     // resumeWebGazer();
     fetchBooks();
     // return () => pauseWebGazer();

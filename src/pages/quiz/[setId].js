@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+export const metadata = {
+  title: 'Play | Quiz | Eyetertainment',
+};
+
 const QuizDetailPage = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -9,6 +13,10 @@ const QuizDetailPage = () => {
   const { query } = useRouter();
   const { setId } = query;
   const router = useRouter();
+
+  useEffect(() => {
+    document.title = metadata.title;
+  }, []);
 
   useEffect(() => {
     if (setId) {
@@ -38,12 +46,12 @@ const QuizDetailPage = () => {
   if (currentQuestionIndex >= questions.length) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="bg-white w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
-          <h1 className="text-2xl font-bold mb-8 text-black text-center mt-10">Quiz Completed</h1>
-          <p className="text-3xl font-semibold text-lg mb-6 text-black text-center">Your score: {score} / {questions.length}</p>
+        <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
+          <h1 className="text-2xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">Quiz Completed</h1>
+          <p className="text-3xl font-semibold text-lg mb-6 text-[#c4c6d0] text-center">Your score: {score} / {questions.length}</p>
           <button 
             onClick={() => router.push('/quiz')} 
-            className="bg-[#aac7ff] font-bold text-white w-[300px] h-[100px] py-3 rounded-lg text-xl hover:bg-[#6495ed] transition mb-10 mx-auto">
+            className="font-bold w-[300px] h-[100px] py-3 rounded-lg text-xl text-[#402843] bg-[#debcdf] hover:bg-[#583e5b] hover:text-[#fcd7fb] transition mb-10 mx-auto">
             Try Another Quiz
           </button>
         </div>
@@ -62,15 +70,15 @@ const QuizDetailPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-white w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
-        <h1 className="text-2xl font-bold mb-8 text-black text-center mt-10">CÂU HỎI {currentQuestionIndex + 1}: {currentQuestion.question}</h1>
+      <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
+        <h1 className="text-2xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">Question {currentQuestionIndex + 1}: {currentQuestion.question}</h1>
 
         <div className="grid grid-cols-2 gap-10 justify-items-center">
           {shuffledAnswers.map((answer, index) => (
             <button
               key={index}
               onClick={() => handleAnswerClick(answer)}
-              className={`w-[300px] h-[100px] py-4 rounded-lg text-white font-semibold bg-[#aac7ff] hover:bg-[#6495ed] transition 
+              className={`w-[300px] h-[100px] py-4 rounded-lg text-[#402843] font-semibold bg-[#debcdf] hover:bg-[#583e5b] hover:text-[#fcd7fb] transition 
                 ${selectedAnswer === answer ? 'bg-[#6495ed]' : ''} text-2xl`}
             >
               {answer}
@@ -78,7 +86,7 @@ const QuizDetailPage = () => {
           ))}
         </div>
 
-        <div className="mt-6 text-black text-lg font-bold text-center">Score: {score}</div>
+        <div className="mt-6 text-[#c4c6d0] text-lg font-bold text-center">Score: {score}</div>
       </div>
     </div>
   );
