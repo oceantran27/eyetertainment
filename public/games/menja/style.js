@@ -643,7 +643,7 @@ function playAndDisposeAudio(audioSrc) {
 
   // Khi audio phát xong
   audio.addEventListener("ended", () => {
-    console.log("Audio finished playing. Cleaning up...");
+    // console.log("Audio finished playing. Cleaning up...");
     audio.src = ""; // Hủy liên kết đến file audio
     audio.remove(); // Xóa đối tượng khỏi bộ nhớ (nếu cần thiết)
   });
