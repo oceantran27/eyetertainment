@@ -1,11 +1,9 @@
+import styles from "@/styles/game.module.css";
 const Menja = () => {
   return (
     <iframe
       src="/games/menja/index.html"
-      width="100%"
-      height="1000"
-      allowFullScreen
-      frameBorder="0"
+      className={styles.iframeGame}
       title="My iframe example"
     />
   );

@@ -1,11 +1,10 @@
+import styles from "@/styles/game.module.css";
+
 const DinoGame = () => {
   return (
     <iframe
       src="/games/dino/index.html"
-      width="100%"
-      height="500"
-      allowFullScreen
-      frameBorder="0"
+      className={styles.iframeGame}
       title="My iframe example"
     />
   );
