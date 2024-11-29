@@ -4,10 +4,12 @@
 }
 
 .game-container {
-  width: 1000px;
-  height: 450px;
-  margin: 20px auto;
+  position: relative;
+  width: 100%;
+  height: 0;
+  /* margin: 20px auto; */
   border: 1px solid;
+  padding-top: 53%;
   position: relative;
   overflow: hidden;
   background-image: url("./assets/sky.png");
@@ -25,9 +27,8 @@
 }
 
 .player {
-  width: 160px;
-  height: 86px;
-  /* border: 1px solid blue; */
+  width: 16vw;
+  height: 16vh;
   position: absolute;
   bottom: 0;
   left: 20%;
@@ -47,10 +48,10 @@
   }
 
   25% {
-    bottom: 250px;
+    bottom: 46.5vh;
   }
   40% {
-    bottom: 250px;
+    bottom: 46.5vh;
   }
 
   100% {
@@ -59,32 +60,31 @@
 }
 
 .obstacle {
-  width: 60px;
-  height: 120px;
+  width: 6vw;
+  height: 22.3vh;
   position: absolute;
   bottom: 0;
   left: 80%;
-  /* border: 1px solid red; */
   animation: move 3s linear infinite;
   background-image: url("./assets/obstacle.png");
   background-size: contain;
 }
 
 .obstacle-xs {
-  width: 30px;
-  height: 70px;
+  width: 3vw;
+  height: 13vh;
 }
 .obstacle-s {
-  width: 60px;
-  height: 80px;
+  width: 6vw;
+  height: 14.9vh;
 }
 .obstacle-m {
-  width: 90px;
-  height: 90px;
+  width: 9vw;
+  height: 16.75vh;
 }
 .obstacle-l {
-  width: 120px;
-  height: 120px;
+  width: 12vw;
+  height: 22.32vh;
 }
 
 @keyframes move {
@@ -97,10 +97,12 @@
 }
 
 .score-card {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   color: #fff;
   font-family: Minecraft;
   font-size: 50px;
-  margin: 20px;
 }
 
 .score-card span {

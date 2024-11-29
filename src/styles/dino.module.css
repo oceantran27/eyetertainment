@@ -4,7 +4,7 @@
   src: url("../assets/games/dino/Minecraft.ttf");
 }
 
-.gameContainer {
+.container {
   width: 1000px;
   height: 450px;
   margin: 20px auto;
@@ -120,7 +120,7 @@
   align-self: end;
 }
 
-.stop.gameContainer,
+.stop.container,
 .stop .obstacle {
   animation-play-state: paused;
 }

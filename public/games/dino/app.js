@@ -3,7 +3,7 @@ const obstacleElement = document.querySelector(".obstacle");
 const scoreElement = document.querySelector(".score-card .score");
 const highScoreElement = document.querySelector(".score-card .high-score");
 const restartGameElement = document.querySelector(".restart-game");
-const gameContainerElement = document.querySelector(".game-container");
+const containerElement = document.querySelector(".game-container");
 
 const OBSTACLE_SIZES = ["xs", "s", "m", "l"];
 const JUMP_THRESHOLD = 300;
@@ -129,7 +129,7 @@ function stopGame() {
   clearInterval(scoreInterval);
   clearInterval(changeObstacleInterval);
   restartGameElement.classList.add("show");
-  gameContainerElement.classList.add("stop");
+  containerElement.classList.add("stop");
   restartCountdown();
 }
 

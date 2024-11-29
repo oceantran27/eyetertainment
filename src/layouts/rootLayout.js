@@ -64,7 +64,9 @@ const RootLayout = ({ children, buttonProps }) => {
 
       <div className="flex flex-col items-center justify-between h-full z-10">
         <LongPressButton
-          className={top.className}
+          className={`${top.className} ${
+            top.className.includes("hidden") ? "hidden" : ""
+          }`}
           onClick={top.onClick}
           icon={top.icon}
         >
@@ -72,7 +74,9 @@ const RootLayout = ({ children, buttonProps }) => {
         </LongPressButton>
 
         <LongPressButton
-          className={bottom.className}
+          className={`${bottom.className} ${
+            bottom.className.includes("hidden") ? "hidden" : ""
+          }`}
           onClick={bottom.onClick}
           icon={bottom.icon}
         >
@@ -81,7 +85,9 @@ const RootLayout = ({ children, buttonProps }) => {
       </div>
 
       <LongPressButton
-        className={left.className}
+        className={`${left.className} ${
+          left.className.includes("hidden") ? "hidden" : ""
+        }`}
         onClick={left.onClick}
         icon={left.icon}
       >
@@ -89,7 +95,9 @@ const RootLayout = ({ children, buttonProps }) => {
       </LongPressButton>
 
       <LongPressButton
-        className={right.className}
+        className={`${right.className} ${
+          right.className.includes("hidden") ? "hidden" : ""
+        }`}
         onClick={right.onClick}
         icon={right.icon}
       >
