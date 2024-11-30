@@ -5,7 +5,7 @@ import CardWrapper from '@/components/cards'
 export default function HomePage() {
   return (
     <div className="h-screen overflow-y-auto">
-        <div className="flex flex-col p-4 bg-[#111318] overflow-auto min-h-screen">
+        <div className=" flex flex-col p-4 overflow-auto min-h-screen">
             {/* <div className="justify-center gap-6 rounded-lg bg-[#1a1b20] px-6 py-10 md:px-20 w-full h-full"> */}
                 <div className="flex-auto flex flex-col md:flex-row md:gap-36 justify-center items-center text-center  p-4">
                     <div className='flex flex-col items-center justify-center'>

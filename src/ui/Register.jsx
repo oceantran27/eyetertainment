@@ -8,7 +8,7 @@ export default function Register() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-        setImage(URL.createObjectURL(file));  // display image
+          setImage(URL.createObjectURL(file));  // display image
         }
     };
 
@@ -51,7 +51,8 @@ export default function Register() {
 
         <button
           onClick={handleUpload}
-          className="w-full text-[#112f60] bg-[#adc6ff] py-2 rounded-lg hover:bg-[#2b4678] hover:text-[#d8e2ff] transition"
+          className={`w-full py-2 rounded-lg text-[#112f60] bg-[#adc6ff] hover:bg-[#2b4678] hover:text-[#d8e2ff] transition ${!image ? 'cursor-not-allowed opacity-50' : ''}`}
+          disabled={!image}
         >
           Upload
         </button>
