@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import { motion } from 'framer-motion';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { motion } from "framer-motion";
+import GazeButton from "@/components/gazeButton";
 
 export const metadata = {
-  title: 'Book | Reading | Eyetertainment',
+  title: "Book | Reading | Eyetertainment",
 };
 
 export default function BookDetail() {
@@ -27,25 +28,33 @@ export default function BookDetail() {
 
   const fetchBookDetail = async (bookSlug) => {
     try {
-      const response = await axios.get(`https://otruyenapi.com/v1/api/truyen-tranh/${bookSlug}`, {
-        headers: { Accept: 'application/json' },
-      });
+      const response = await axios.get(
+        `https://otruyenapi.com/v1/api/truyen-tranh/${bookSlug}`,
+        {
+          headers: { Accept: "application/json" },
+        }
+      );
       const bookData = response.data?.data?.item || {};
       setBook(bookData);
     } catch (error) {
-      console.error('Error fetching book detail:', error.message);
+      console.error("Error fetching book detail:", error.message);
     }
   };
 
   const cleanContent = (rawContent) => {
-    if (!rawContent) return '';
-    let cleanedContent = rawContent.replace(/<\/?p>/g, '');
-    cleanedContent = cleanedContent.replace(/^19\s*/, '');
-    return cleanedContent.length > 500 ? cleanedContent.slice(0, 500) + '...' : cleanedContent.trim();
+    if (!rawContent) return "";
+    let cleanedContent = rawContent.replace(/<\/?p>/g, "");
+    cleanedContent = cleanedContent.replace(/^19\s*/, "");
+    return cleanedContent.length > 500
+      ? cleanedContent.slice(0, 500) + "..."
+      : cleanedContent.trim();
   };
 
   const handleNext = () => {
-    if (currentChapterIndex + chaptersPerPage < book.chapters[0].server_data.length) {
+    if (
+      currentChapterIndex + chaptersPerPage <
+      book.chapters[0].server_data.length
+    ) {
       setCurrentChapterIndex(currentChapterIndex + chaptersPerPage);
     }
   };
@@ -62,7 +71,11 @@ export default function BookDetail() {
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+          transition={{
+            duration: 0.5,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
           className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
         ></motion.div>
       </div>
@@ -83,27 +96,31 @@ export default function BookDetail() {
         />
 
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-4 text-[#e2e2e9]">{book.name}</h1>
-          <p className="text-lg text-[#adc6ff] mb-6" >
-            {cleanContent(book.content) || 'Không có mô tả.'}
+          <h1 className="text-3xl font-bold mb-4 text-[#e2e2e9]">
+            {book.name}
+          </h1>
+          <p className="text-lg text-[#adc6ff] mb-6">
+            {cleanContent(book.content) || "Không có mô tả."}
           </p>
         </div>
       </div>
 
       <div className="relative">
         {/* Nút Previous */}
-        <motion.button
+        <GazeButton
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
           onClick={handlePrevious}
           disabled={currentChapterIndex === 0}
           className={`absolute left-0 inset-y-16 transform bg-[#1e1f25] text-white  p-4 rounded-full shadow-lg ${
-            currentChapterIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:[#37393e]'
+            currentChapterIndex === 0
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:[#37393e]"
           }`}
-          style={{ width: '60px', height: '60px' }}
+          style={{ width: "60px", height: "60px" }}
         >
           <AiOutlineLeft size={30} />
-        </motion.button>
+        </GazeButton>
 
         {/* Lưới chương */}
         <motion.div
@@ -113,56 +130,58 @@ export default function BookDetail() {
           transition={{ duration: 0.5 }}
           style={{
             gridTemplateColumns: `repeat(${chaptersPerPage}, 1fr)`,
-            gridAutoRows: '1fr',
+            gridAutoRows: "1fr",
           }}
         >
-          {chapters.slice(currentChapterIndex, currentChapterIndex + chaptersPerPage).map((chapter, index) => (
-            <motion.button
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#debcdf] text-[#402843] rounded-lg hover:bg-[#583e5b] hover:text-[#fcd7fb] text-3xl flex items-center justify-center shadow-lg"
-              style={{
-                aspectRatio: '1',
-              }}
-              onClick={() => {
-                const chapterId = chapter.chapter_api_data.split('/').pop();
-                router.push(`/book/chapter/${chapterId}`);
-              }}
-            >
-              {chapter.chapter_name}
-            </motion.button>
-          ))}
+          {chapters
+            .slice(currentChapterIndex, currentChapterIndex + chaptersPerPage)
+            .map((chapter, index) => (
+              <GazeButton
+                key={index}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#debcdf] text-[#402843] rounded-lg hover:bg-[#583e5b] hover:text-[#fcd7fb] text-3xl flex items-center justify-center shadow-lg"
+                style={{
+                  aspectRatio: "1",
+                }}
+                onClick={() => {
+                  const chapterId = chapter.chapter_api_data.split("/").pop();
+                  router.push(`/book/chapter/${chapterId}`);
+                }}
+              >
+                {chapter.chapter_name}
+              </GazeButton>
+            ))}
         </motion.div>
 
         {/* Nút Next */}
-        <motion.button
+        <GazeButton
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleNext}
           disabled={currentChapterIndex + chaptersPerPage >= chapters.length}
           className={`absolute right-0 inset-y-16 transform bg-[#1e1f25] text-white p-4 rounded-full shadow-lg ${
             currentChapterIndex + chaptersPerPage >= chapters.length
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:bg-[#37393e]'
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-[#37393e]"
           }`}
-          style={{ width: '60px', height: '60px' }}
+          style={{ width: "60px", height: "60px" }}
         >
           <AiOutlineRight size={30} />
-        </motion.button>
+        </GazeButton>
       </div>
 
       {/* Nút quay lại */}
       <div className="flex mt-8">
-        <motion.button
+        <GazeButton
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => router.back()}
           className="bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
-          style={{ width: '200px', height: '60px' }}
+          style={{ width: "200px", height: "60px" }}
         >
-          Quay lại
-        </motion.button>
+          Back
+        </GazeButton>
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import { motion } from 'framer-motion'; // Import Framer Motion để thêm animation
+import { useRouter } from "next/router";
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { motion } from "framer-motion"; // Import Framer Motion để thêm animation
+import GazeButton from "@/components/gazeButton";
 
 export const metadata = {
-  title: 'Read | Book | Reading | Eyetertainment',
+  title: "Read | Book | Reading | Eyetertainment",
 };
 
 function LazyImage({ src, alt, className }) {
@@ -22,7 +23,7 @@ function LazyImage({ src, alt, className }) {
           observer.disconnect();
         }
       },
-      { rootMargin: '100px' }
+      { rootMargin: "100px" }
     );
     observer.observe(imgRef.current);
     return () => observer.disconnect();
@@ -33,8 +34,8 @@ function LazyImage({ src, alt, className }) {
       ref={imgRef}
       alt={alt}
       className={className}
-      style={{ filter: 'blur(10px)', transition: 'filter 0.3s ease-out' }}
-      onLoad={(e) => (e.target.style.filter = 'none')}
+      style={{ filter: "blur(10px)", transition: "filter 0.3s ease-out" }}
+      onLoad={(e) => (e.target.style.filter = "none")}
     />
   );
 }
@@ -43,7 +44,7 @@ export default function ChapterDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [chapterImages, setChapterImages] = useState([]);
-  const [chapterTitle, setChapterTitle] = useState('');
+  const [chapterTitle, setChapterTitle] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -60,7 +61,7 @@ export default function ChapterDetail() {
 
   const fetchChapterContent = async (chapterId) => {
     if (!chapterId) {
-      console.error('Invalid chapter ID');
+      console.error("Invalid chapter ID");
       setLoading(false);
       return;
     }
@@ -69,7 +70,7 @@ export default function ChapterDetail() {
       const response = await axios.get(
         `https://sv1.otruyencdn.com/v1/api/chapter/${chapterId}`,
         {
-          headers: { Accept: 'application/json' },
+          headers: { Accept: "application/json" },
         }
       );
       const data = response.data?.data;
@@ -86,10 +87,10 @@ export default function ChapterDetail() {
         preloadImages(images);
 
         setChapterImages(images);
-        setChapterTitle(data.item.comic_name || 'Nội dung chương');
+        setChapterTitle(data.item.comic_name || "Nội dung chương");
       }
     } catch (error) {
-      console.error('Error fetching chapter content:', error.message);
+      console.error("Error fetching chapter content:", error.message);
     } finally {
       setLoading(false);
     }
@@ -105,14 +106,14 @@ export default function ChapterDetail() {
   const handleNextPage = () => {
     if (currentPage < chapterImages.length - 3) {
       setCurrentPage(currentPage + 3);
-      document.documentElement.scrollIntoView({ behavior: 'smooth' });
+      document.documentElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 3);
-      document.documentElement.scrollIntoView({ behavior: 'smooth' });
+      document.documentElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -122,15 +123,21 @@ export default function ChapterDetail() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+          transition={{
+            duration: 0.5,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
           className="flex flex-col items-center space-y-4"
         >
           <motion.div
             className="w-16 h-16 border-4 border-[#adc6ff] border-t-transparent rounded-full"
             animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
           ></motion.div>
-          <p className="text-lg font-semibold text-[#adc6ff]">Đang tải dữ liệu...</p>
+          <p className="text-lg font-semibold text-[#adc6ff]">
+            Đang tải dữ liệu...
+          </p>
         </motion.div>
       </div>
     );
@@ -149,18 +156,20 @@ export default function ChapterDetail() {
       </motion.h1>
 
       {/* Nút Prev */}
-      <motion.button
+      <GazeButton
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
         onClick={handlePreviousPage}
         disabled={currentPage === 0}
         className={`z-10 absolute left-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
-          currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'
+          currentPage === 0
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:scale-110"
         }`}
-        style={{ width: '80px', height: '80px' }}
+        style={{ width: "80px", height: "80px" }}
       >
         Prev
-      </motion.button>
+      </GazeButton>
 
       {/* Hiển thị ảnh */}
       <motion.div
@@ -187,20 +196,20 @@ export default function ChapterDetail() {
       </motion.div>
 
       {/* Nút Next */}
-      <motion.button
+      <GazeButton
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
         onClick={handleNextPage}
         disabled={currentPage >= chapterImages.length - 3}
         className={`absolute right-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
           currentPage >= chapterImages.length - 3
-            ? 'opacity-50 cursor-not-allowed'
-            : 'hover:scale-110'
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:scale-110"
         }`}
-        style={{ width: '80px', height: '80px' }}
+        style={{ width: "80px", height: "80px" }}
       >
         Next
-      </motion.button>
+      </GazeButton>
 
       {/* Hiển thị số trang */}
       <motion.div
@@ -215,14 +224,14 @@ export default function ChapterDetail() {
       </motion.div>
 
       {/* Nút quay lại */}
-      <motion.button
+      <GazeButton
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => router.back()}
         className="absolute bottom-10 left-10 bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
       >
-        Quay lại
-      </motion.button>
+        Back
+      </GazeButton>
     </div>
   );
 }

@@ -2,28 +2,27 @@ import { useState, useEffect } from "react";
 
 export default function HoverButton({ onClick, className, icon, style }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [progress, setProgress] = useState(0); // Tỷ lệ tiến trình (0-100)
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let timer;
     if (isHovered) {
-      // Đặt thời gian đếm ngược (1.5s = 1500ms)
       let elapsedTime = 0;
       timer = setInterval(() => {
-        elapsedTime += 50; // Cập nhật tiến trình mỗi 50ms
-        setProgress((elapsedTime / 1500) * 100); // Tính toán tỷ lệ tiến trình (0-100)
+        elapsedTime += 50;
+        setProgress((elapsedTime / 1500) * 100);
 
         if (elapsedTime >= 1500) {
-          clearInterval(timer); // Dừng đếm ngược khi đã hoàn thành
-          handleHoverActivate(); // Kích hoạt onClick sau khi đủ 1.5s
+          clearInterval(timer);
+          handleHoverActivate();
         }
-      }, 50); // Thực hiện mỗi 50ms
+      }, 50);
     } else {
-      clearInterval(timer); // Dừng khi hover ra ngoài
-      setProgress(0); // Reset tiến trình khi hover ra ngoài
+      clearInterval(timer);
+      setProgress(0);
     }
 
-    return () => clearInterval(timer); // Dọn dẹp khi component bị hủy
+    return () => clearInterval(timer);
   }, [isHovered]);
 
   const handleHoverActivate = () => {
@@ -33,8 +32,8 @@ export default function HoverButton({ onClick, className, icon, style }) {
   return (
     <div style={{ position: "relative", width: "200px", height: "50px" }}>
       <button
-        onMouseEnter={() => setIsHovered(true)} // Khi hover vào
-        onMouseLeave={() => setIsHovered(false)} // Khi hover ra ngoài
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
         style={{
           ...style,
@@ -59,10 +58,10 @@ export default function HoverButton({ onClick, className, icon, style }) {
             position: "absolute",
             bottom: 0,
             left: 0,
-            width: `${progress}%`, // Hiển thị thanh tiến trình
+            width: `${progress}%`,
             height: "5px",
-            backgroundColor: "#FF9800", // Màu thanh tiến trình
-            transition: "width 0.05s ease-out", // Hiệu ứng mượt mà cho thanh tiến trình
+            backgroundColor: "#adc6ff",
+            transition: "width 0.05s ease-out",
           }}
         />
       </button>

@@ -53,7 +53,7 @@ const Card = ({ image, title, author, genre, action, gradient, onClick }) => {
           left: 0,
           width: `${progress}%`,
           height: "5px",
-          backgroundColor: "#FF9800",
+          backgroundColor: "#adc6ff",
           transition: "width 0.05s ease-out",
           zIndex: 10,
         }}
