@@ -11,7 +11,7 @@ const imageMap = {
 
 const targetUrl = {
   quiz: "/quiz",
-  reading: "/bookslist",
+  reading: "/booksPage",
   game: "/game",
 };
 
