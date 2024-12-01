@@ -10,11 +10,10 @@ import "@/styles/global.css";
 // }
 
 function MyApp({ Component, pageProps }) {
-
   return (
-    <GazeDataProvider>
-      <Component {...pageProps} />
-    </GazeDataProvider>
+    // <GazeDataProvider>
+    <Component {...pageProps} />
+    // </GazeDataProvider>
   );
 }
 
