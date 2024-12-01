@@ -79,7 +79,7 @@ const BooksList = ({ children, books, currentIndex, goToNext, goToPrevious, mess
               whileTap={{ scale: 0.9 }}
               onClick={goToNext}
               disabled={currentIndex + booksPerPage >= books.length}
-              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
+              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex + booksPerPage >= books.length ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
             >
               <AiOutlineRight />
             </motion.button>
