@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 
-export default function GazeButton({ onClick, className, style, children }) {
+export default function GazeButton({
+  children,
+  style,
+  onClick,
+  className,
+  ...props
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -43,6 +49,7 @@ export default function GazeButton({ onClick, className, style, children }) {
           position: "relative",
         }}
         className={className}
+        props
       >
         {children}
         <div
@@ -52,7 +59,7 @@ export default function GazeButton({ onClick, className, style, children }) {
             left: 0,
             width: `${progress}%`,
             height: "5px",
-            backgroundColor: "#FF9800",
+            backgroundColor: "#adc6ff",
             transition: "width 0.05s ease-out",
             zIndex: 1,
           }}

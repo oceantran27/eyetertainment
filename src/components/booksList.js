@@ -1,11 +1,19 @@
-import { useState } from 'react';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import { motion } from 'framer-motion';
-import SearchBar from './SearchBar';
-import BookCard from './bookCard';
+import { useState } from "react";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { motion } from "framer-motion";
+import SearchBar from "./SearchBar";
+import BookCard from "./bookCard";
+import GazeButton from "./gazeButton";
 
-const BooksList = ({ children, books, currentIndex, goToNext, goToPrevious, message }) => {
-  const booksPerPage = 4; 
+const BooksList = ({
+  children,
+  books,
+  currentIndex,
+  goToNext,
+  goToPrevious,
+  message,
+}) => {
+  const booksPerPage = 4;
   const totalPages = Math.ceil(books.length / booksPerPage);
   const currentPage = Math.floor(currentIndex / booksPerPage) + 1;
 
@@ -47,34 +55,40 @@ const BooksList = ({ children, books, currentIndex, goToNext, goToPrevious, mess
             transition={{ duration: 0.8 }}
           >
             {/* Nút trái */}
-            <motion.button
+            <GazeButton
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               onClick={goToPrevious}
               disabled={currentIndex === 0}
-              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
+              className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${
+                currentIndex === 0
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:shadow-xl"
+              } active:scale-95`}
             >
               <AiOutlineLeft />
-            </motion.button>
+            </GazeButton>
 
             {/* Danh sách sách */}
             <motion.div
               className="grid gap-4 md:gap-8 sm:grid-cols-2 md:grid-cols-4"
               style={{
-                gridTemplateColumns: `repeat(${booksPerPage}, 1fr)`
+                gridTemplateColumns: `repeat(${booksPerPage}, 1fr)`,
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               {/* Cai nay la component bookcard */}
-              {books.slice(currentIndex, currentIndex + booksPerPage).map((book, index) => (
-                <BookCard key={index} book={book} index={index} />
-              ))} 
+              {books
+                .slice(currentIndex, currentIndex + booksPerPage)
+                .map((book, index) => (
+                  <BookCard key={index} book={book} index={index} />
+                ))}
             </motion.div>
 
             {/* Nút phải */}
-            <motion.button
+            <GazeButton
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               onClick={goToNext}
@@ -82,9 +96,9 @@ const BooksList = ({ children, books, currentIndex, goToNext, goToPrevious, mess
               className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${currentIndex + booksPerPage >= books.length ? "opacity-50 cursor-not-allowed" : "hover:shadow-xl"} active:scale-95`}
             >
               <AiOutlineRight />
-            </motion.button>
+            </GazeButton>
           </motion.div>
-          
+
           {/* Thanh tiến trình */}
           <div className="w-full bg-[#44474f] rounded-full h-4 my-4">
             <div
