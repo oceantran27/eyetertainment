@@ -1,14 +1,15 @@
 import { useState } from "react";
-import Card from "@/components/card";
+import Card from "@/components/gameCard";
 import DinoGame from "@/components/dinoGame";
 import FlappyBird from "@/components/flappyBirdGame";
 import Menja from "@/components/menjaGame";
 import styles from "@/styles/game.module.css";
 import RootLayout from "@/layouts/rootLayout";
 import { useEffect } from "react";
+import GazeButton from "@/components/gazeButton";
 
 export const metadata = {
-  title: 'Game | Eyetertainment',
+  title: "Game | Eyetertainment",
 };
 
 const Game = () => {
@@ -17,7 +18,7 @@ const Game = () => {
   useEffect(() => {
     document.title = metadata.title;
   }, []);
-  
+
   const customButtonProps = {
     left: {
       onClick: () => handleOnClickBack(),

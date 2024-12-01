@@ -1,29 +1,36 @@
 import { useState, useEffect } from "react";
 
-export default function GazeButton({ onClick, className, icon, style }) {
+export default function GazeButton({ onClick, className, style, children }) {
   const [isHovered, setIsHovered] = useState(false);
-  //   const [isTriggered, setIsTriggered] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let timeout;
+    let timer;
     if (isHovered) {
-      timeout = setTimeout(() => {
-        handleHoverActivate();
-      }, 1500);
+      let elapsedTime = 0;
+      timer = setInterval(() => {
+        elapsedTime += 50;
+        setProgress((elapsedTime / 1500) * 100);
+
+        if (elapsedTime >= 1500) {
+          clearInterval(timer);
+          handleHoverActivate();
+        }
+      }, 50);
     } else {
-      clearTimeout(timeout);
+      clearInterval(timer);
+      setProgress(0);
     }
 
-    return () => clearTimeout(timeout);
+    return () => clearInterval(timer);
   }, [isHovered]);
 
   const handleHoverActivate = () => {
-    // setIsTriggered(true);
     onClick();
   };
 
   return (
-    <div>
+    <>
       <button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -33,11 +40,24 @@ export default function GazeButton({ onClick, className, icon, style }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
         className={className}
       >
-        {icon}
+        {children}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: `${progress}%`,
+            height: "5px",
+            backgroundColor: "#FF9800",
+            transition: "width 0.05s ease-out",
+            zIndex: 1,
+          }}
+        />
       </button>
-    </div>
+    </>
   );
 }

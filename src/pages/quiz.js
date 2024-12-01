@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { useRouter } from "next/router";
+import GazeButton from "@/components/gazeButton";
 
 export const metadata = {
-  title: 'Quiz | Eyetertainment',
+  title: "Quiz | Eyetertainment",
 };
 
 const QuizPage = () => {
@@ -15,7 +16,7 @@ const QuizPage = () => {
   useEffect(() => {
     document.title = metadata.title;
     const fetchQuizSets = async () => {
-      const response = await fetch('/api/quiz');
+      const response = await fetch("/api/quiz");
       const data = await response.json();
       setQuizSets(data.quizSets);
     };
@@ -24,7 +25,7 @@ const QuizPage = () => {
   }, []);
 
   const filteredQuizSets = selectedCategory
-    ? quizSets.filter(set => set.category === selectedCategory)
+    ? quizSets.filter((set) => set.category === selectedCategory)
     : quizSets;
 
   const quizSetsPerPage = 3;
@@ -36,14 +37,14 @@ const QuizPage = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handlePageChange = (direction) => {
     setCurrentPage((prevPage) => {
-      if (direction === 'prev') {
+      if (direction === "prev") {
         return Math.max(prevPage - 1, 1);
-      } else if (direction === 'next') {
+      } else if (direction === "next") {
         return Math.min(prevPage + 1, totalPages);
       }
       return prevPage;
@@ -51,80 +52,93 @@ const QuizPage = () => {
   };
 
   const handleCardClick = (setId) => {
-    router.push(`/quiz/${setId}`);  // Chuyen den trang lam quiz
+    router.push(`/quiz/${setId}`); // Chuyen den trang lam quiz
   };
 
   return (
     <div className="container mx-auto p-6 flex flex-col items-center justify-center h-screen">
       <div className="font-sans p-8">
         {/* Heading */}
-        <h1 className="text-6xl font-bold text-center mb-16 text-[#e2e2e9]">QUIZ</h1>
+        <h1 className="text-6xl font-bold text-center mb-16 text-[#e2e2e9]">
+          QUIZ
+        </h1>
 
         {/* Cac button chon category */}
         <div className="grid grid-cols-4 gap-10 place-items-center max-w-5xl mx-auto ">
-        {['General Knowledge', 'Books', 'Science & Nature', 'Sports', 'Film', 'Music', 'Animals', 'Animation'].map((category) => (
-            <button
-            key={category}
-            onClick={() => handleCategoryClick(category)}
-            className="btn-category w-48 bg-[#debcdf] text-[#402843] hover:bg-[#583e5b] hover:text-[#fcd7fb]"
+          {[
+            "General Knowledge",
+            "Books",
+            "Science & Nature",
+            "Sports",
+            "Film",
+            "Music",
+            "Animals",
+            "Animation",
+          ].map((category) => (
+            <GazeButton
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              className="btn-category w-48 bg-[#debcdf] text-[#402843] hover:bg-[#583e5b] hover:text-[#fcd7fb]"
             >
-            {category}
-            </button>
-        ))}
+              {category}
+            </GazeButton>
+          ))}
         </div>
-
       </div>
 
       <div className="flex justify-center items-center my-10 max-w-5xl mx-auto">
         {/* left btn */}
-        <button
-            onClick={() => handlePageChange('prev')}
-            disabled={currentPage === 1}
-            className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-            }active:bg-[#37393e]`}
-            style={{ marginRight: '50px' }}
+        <GazeButton
+          onClick={() => handlePageChange("prev")}
+          disabled={currentPage === 1}
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${
+            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+          }active:bg-[#37393e]`}
+          style={{ marginRight: "50px" }}
         >
-            <AiOutlineLeft />
-        </button>
+          <AiOutlineLeft />
+        </GazeButton>
 
         <div
-            className="grid gap-16" 
-            style={{ 
+          className="grid gap-16"
+          style={{
             gridTemplateColumns: `repeat(${quizSetsPerPage}, 1fr)`,
-            }}
+          }}
         >
-            {currentSets.map((set) => (
-            <div 
-                key={set.set_id} 
-                onClick={() => handleCardClick(set.set_id)}
-                className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
-                style={{ width: '260px', height: '380px' }}
+          {currentSets.map((set) => (
+            <GazeButton
+              key={set.set_id}
+              onClick={() => handleCardClick(set.set_id)}
+              className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6"
+              style={{ width: "260px", height: "380px" }}
             >
-                <div className="relative w-full h-2/3">
+              <div className="relative w-full h-2/3">
                 <img
-                    src={set.image_url} 
-                    alt={set.category}
-                    className="w-full h-full object-cover rounded-lg"
+                  src={set.image_url}
+                  alt={set.category}
+                  className="w-full h-full object-cover rounded-lg"
                 />
-                </div>
-                <h2 className="text-center text-xl font-semibold">{set.category}</h2>
-                <h2 className="text-center text-xl">{set.set_id}</h2>
-            </div>
-            ))}
+              </div>
+              <h2 className="text-center text-xl font-semibold">
+                {set.category}
+              </h2>
+              <h2 className="text-center text-xl">{set.set_id}</h2>
+            </GazeButton>
+          ))}
         </div>
 
         {/* rigth btn */}
-        <button
-            onClick={() => handlePageChange('next')}
-            disabled={currentPage === totalPages}
-            className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-            }active:bg-[#37393e]`}
-            style={{ marginLeft: '50px' }}
+        <GazeButton
+          onClick={() => handlePageChange("next")}
+          disabled={currentPage === totalPages}
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg ${
+            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+          }active:bg-[#37393e]`}
+          style={{ marginLeft: "50px" }}
         >
-            <AiOutlineRight />
-        </button>
+          <AiOutlineRight />
+        </GazeButton>
       </div>
-
     </div>
   );
 };
