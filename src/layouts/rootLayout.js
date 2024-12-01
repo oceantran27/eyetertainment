@@ -10,28 +10,28 @@ const RootLayout = ({ children, buttonProps }) => {
   const defaultButtonProps = {
     top: {
       className:
-        "w-1/2 h-10 transform -translate-y-1/2 bg-black-opacity-30 text-white rounded-b-xl",
+        "w-1/2 h-10 transform -translate-y-1/2 bg-[#1e1f25] text-white rounded-b-xl",
       onClick: () => console.log("Top button pressed"),
       label: "Top Button",
       icon: <MdKeyboardVoice />,
     },
     bottom: {
       className:
-        "w-1/2 h-10 transform translate-y-1/2 bg-black-opacity-30 text-white rounded-t-xl",
+        "w-1/2 h-10 transform translate-y-1/2 bg-[#1e1f25] text-white rounded-t-xl",
       onClick: () => console.log("Bottom button pressed"),
       label: "Bottom Button",
       icon: <MdHome />,
     },
     left: {
       className:
-        "absolute left-0 top-1/4 transform -translate-x-1/2 w-10 h-1/2 bg-black-opacity-30 text-white rounded-r-xl",
+        "absolute left-0 top-1/4 transform -translate-x-1/2 w-10 h-1/2 bg-[#1e1f25] text-white rounded-r-xl",
       onClick: () => console.log("Left button pressed"),
       label: "Left Button",
       icon: <MdArrowBack />,
     },
     right: {
       className:
-        "absolute right-0 top-1/4 transform translate-x-1/2 w-10 h-1/2 bg-black-opacity-30 text-white rounded-l-xl",
+        "absolute right-0 top-1/4 transform translate-x-1/2 w-10 h-1/2 bg-[#1e1f25] text-white rounded-l-xl",
       onClick: () => console.log("Right button pressed"),
       label: "Right Button",
       icon: <MdArrowForward />,

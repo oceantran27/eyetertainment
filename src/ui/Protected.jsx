@@ -34,7 +34,7 @@ function Protected() {
     }
 
     return (
-        <div className="pt-20 md:pt-16">
+        <div className="pt-20 md:pt-16 max-h-screen overflow-y-auto">
             <div className="mx-auto max-w-7xl">
                 <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl mb-2">
                     You have successfully logged in!
