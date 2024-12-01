@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import BooksList from "@/components/booksList";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -55,9 +55,9 @@ const Search = () => {
   };
 
   return (
-    <Layout books={books} currentIndex={currentIndex} goToNext={goToNext} goToPrevious={goToPrevious} message={message}>
+    <BooksList books={books} currentIndex={currentIndex} goToNext={goToNext} goToPrevious={goToPrevious} message={message}>
       {/* Nội dung sẽ được hiển thị ở Layout */}
-    </Layout>
+    </BooksList>
   );
 };
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Layout from "@/components/Layout";
+import BooksList from "@/components/booksList";
 
 export const metadata = {
   title: 'Reading | Eyetertainment',
 };
 
-export default function BooksList() {
+export default function BooksPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const booksPerPage = 4;
   const [books, setBooks] = useState([]);
@@ -45,13 +45,13 @@ export default function BooksList() {
   };
 
   return (
-    <Layout
+    <BooksList
       books={books}
       currentIndex={currentIndex}
       goToNext={goToNext}
       goToPrevious={goToPrevious}
     >
       {/* Nội dung sẽ được hiển thị ở Layout */}
-    </Layout>
+    </BooksList>
   );
 }

@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import SearchBar from './SearchBar';
+import BookCard from './bookCard';
 
-const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message }) => {
+const BooksList = ({ children, books, currentIndex, goToNext, goToPrevious, message }) => {
   const booksPerPage = 4; 
   const totalPages = Math.ceil(books.length / booksPerPage);
   const currentPage = Math.floor(currentIndex / booksPerPage) + 1;
@@ -66,35 +67,10 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
+              {/* Cai nay la component bookcard */}
               {books.slice(currentIndex, currentIndex + booksPerPage).map((book, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-[#f9f9ff] text-[#1a1b20] rounded-xl p-6 shadow-lg flex flex-col items-center space-y-6 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-                  style={{ width: '260px', height: '380px' }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.1 }}
-                  onClick={() => {
-                    window.location.href = `/book/${book.slug}`;
-                  }}
-                >
-                  <div 
-                    className="relative w-full h-2/3"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <img
-                      src={`https://otruyenapi.com/uploads/comics/${book.thumb_url}`}
-                      alt={book.name}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                    <span className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-sm px-2 py-1 rounded">
-                      Chap {book.chaptersLatest[0]?.chapter_name}
-                    </span>
-                  </div>
-                  <h2 className="text-center text-xl font-semibold">{book.name}</h2>
-                </motion.div>
-              ))}
+                <BookCard key={index} book={book} index={index} />
+              ))} 
             </motion.div>
 
             {/* Nút phải */}
@@ -122,4 +98,4 @@ const Layout = ({ children, books, currentIndex, goToNext, goToPrevious, message
   );
 };
 
-export default Layout;
+export default BooksList;
