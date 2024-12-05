@@ -56,7 +56,7 @@ const Search = () => {
 
   return (
     <BooksList books={books} currentIndex={currentIndex} goToNext={goToNext} goToPrevious={goToPrevious} message={message}>
-      {/* Nội dung sẽ được hiển thị ở Layout */}
+      {/* content */}
     </BooksList>
   );
 };

@@ -51,7 +51,7 @@ export default function BooksPage() {
       goToNext={goToNext}
       goToPrevious={goToPrevious}
     >
-      {/* Nội dung sẽ được hiển thị ở Layout */}
+      {/* content */}
     </BooksList>
   );
 }

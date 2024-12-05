@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import GazeButton from "@/components/gazeButton";
+import Navbar from "@/components/NavBar";
+import MainLayout from "@/components/mainLayout";
 
 export const metadata = {
   title: "Play | Quiz | Eyetertainment",
@@ -46,22 +48,27 @@ const QuizDetailPage = () => {
   // kiem tra xem het cau hoi chua
   if (currentQuestionIndex >= questions.length) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
-          <h1 className="text-2xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">
-            Quiz Completed
-          </h1>
-          <p className="text-3xl font-semibold text-lg mb-6 text-[#c4c6d0] text-center">
-            Your score: {score} / {questions.length}
-          </p>
-          <button
-            onClick={() => router.push("/quiz")}
-            className="font-bold w-[300px] h-[100px] py-3 rounded-lg text-xl text-[#402843] bg-[#debcdf] hover:bg-[#583e5b] hover:text-[#fcd7fb] transition mb-10 mx-auto"
-          >
-            Try Another Quiz
-          </button>
+      <MainLayout>
+        <div className="flex justify-center items-center h-screen">
+          <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
+            <h1 className="text-5xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">
+              Quiz Completed
+            </h1>
+            <p className="text-5xl font-semibold text-lg mb-6 text-[#c4c6d0] text-center">
+              Your score: {score} / {questions.length}
+            </p>
+            <GazeButton
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push("/quiz")}
+              className="font-bold bg-[#bfc6dc] text-2xl text-[#293041] py-3 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg transition mb-10 mx-auto"
+              style={{ width: "200px", height: "100px" }}
+            >
+              Try Another Quiz
+            </GazeButton>
+          </div>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
@@ -75,30 +82,34 @@ const QuizDetailPage = () => {
   const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
-        <h1 className="text-2xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">
-          Question {currentQuestionIndex + 1}: {currentQuestion.question}
-        </h1>
+    <MainLayout>
+      <div className="flex justify-center items-center h-screen">
+        <div className="bg-[#1e1f25] w-[1000px] h-[600px] p-6 rounded-xl flex flex-col justify-between">
+          <h1 className="text-2xl font-bold mb-8 text-[#c4c6d0] text-center mt-10">
+            Question {currentQuestionIndex + 1}: {currentQuestion.question}
+          </h1>
 
-        <div className="grid grid-cols-2 gap-10 justify-items-center">
-          {shuffledAnswers.map((answer, index) => (
-            <GazeButton
-              key={index}
-              onClick={() => handleAnswerClick(answer)}
-              className={`w-[300px] h-[100px] py-4 rounded-lg text-[#402843] font-semibold bg-[#debcdf] hover:bg-[#583e5b] hover:text-[#fcd7fb] transition 
-                ${selectedAnswer === answer ? "bg-[#6495ed]" : ""} text-2xl`}
-            >
-              {answer}
-            </GazeButton>
-          ))}
-        </div>
+          <div className="grid grid-cols-2 gap-10 justify-items-center">
+            {shuffledAnswers.map((answer, index) => (
+              <GazeButton
+                key={index}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleAnswerClick(answer)}
+                className={`w-[300px] h-[100px] py-4 rounded-lg bg-[#bfc6dc] text-[#293041] font-semibold hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg transition 
+                  ${selectedAnswer === answer ? "bg-[#6495ed]" : ""} text-2xl`}
+              >
+                {answer}
+              </GazeButton>
+            ))}
+          </div>
 
-        <div className="mt-6 text-[#c4c6d0] text-lg font-bold text-center">
-          Score: {score}
+          <div className="mt-6 text-[#c4c6d0] text-lg font-bold text-center">
+            Score: {score}
+          </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 };
 
