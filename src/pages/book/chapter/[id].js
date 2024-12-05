@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
 import { motion } from "framer-motion"; // Import Framer Motion để thêm animation
 import GazeButton from "@/components/gazeButton";
@@ -47,6 +48,7 @@ export default function ChapterDetail() {
   const [chapterTitle, setChapterTitle] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  const pagesPerPage = 2;
 
   useEffect(() => {
     if (id) {
@@ -104,22 +106,22 @@ export default function ChapterDetail() {
   };
 
   const handleNextPage = () => {
-    if (currentPage < chapterImages.length - 3) {
-      setCurrentPage(currentPage + 3);
+    if (currentPage < chapterImages.length - pagesPerPage) {
+      setCurrentPage(currentPage + pagesPerPage);
       document.documentElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 3);
+      setCurrentPage(currentPage - pagesPerPage);
       document.documentElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="container mx-auto p-6 flex flex-col items-center justify-center h-screen">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -144,83 +146,78 @@ export default function ChapterDetail() {
   }
 
   return (
-    <div className="relative flex justify-center items-center h-screen">
+    <div className="container mx-auto p-6 flex flex-col justify-center items-center h-screen">
       {/* Hiển thị tiêu đề chương */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-4 text-2xl font-bold text-center text-[#e2e2e9]"
+        className="mt-16 mb-16 text-4xl font-bold text-center text-[#e2e2e9]"
       >
         {chapterTitle}
       </motion.h1>
 
-      {/* Nút Prev */}
-      <GazeButton
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={handlePreviousPage}
-        disabled={currentPage === 0}
-        className={`z-10 absolute left-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
-          currentPage === 0
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:scale-110"
-        }`}
-        style={{ width: "80px", height: "80px" }}
-      >
-        Prev
-      </GazeButton>
-
-      {/* Hiển thị ảnh */}
       <motion.div
-        className="flex justify-center items-center space-x-4"
+        className="flex items-center justify-center mb-16 space-x-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.25 }}
+        transition={{ duration: 0.8 }}
       >
-        {chapterImages.slice(currentPage, currentPage + 3).map((img) => (
-          <motion.div
-            key={img.id}
-            className="relative"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.25, delay: img.id * 0.1 }}
-          >
-            <LazyImage
-              src={img.url}
-              alt={`Page ${img.id}`}
-              className="max-h-[77vh] max-w-[33vw] shadow-lg rounded-lg object-contain"
-            />
-          </motion.div>
-        ))}
-      </motion.div>
 
-      {/* Nút Next */}
-      <GazeButton
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={handleNextPage}
-        disabled={currentPage >= chapterImages.length - 3}
-        className={`absolute right-10 bg-[#1e1f25] text-white p-6 rounded-full shadow transition-transform duration-200 ${
-          currentPage >= chapterImages.length - 3
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:scale-110"
-        }`}
-        style={{ width: "80px", height: "80px" }}
-      >
-        Next
-      </GazeButton>
+        {/* Nút Prev */}
+        <GazeButton
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={handlePreviousPage}
+          disabled={currentPage === 0}
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${
+            currentPage === 0
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:shadow-xl"
+          }active:scale-95`}
+        >
+          <AiOutlineLeft />
+        </GazeButton>
 
-      {/* Hiển thị số trang */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.25 }}
-        className="absolute top-4 right-10 bg-[#bfc6dc] text-[#293041] w-14 h-14 flex items-center justify-center rounded-full shadow-lg"
-      >
-        <span className="text-lg font-bold">
-          {Math.ceil(currentPage / 3) + 1}
-        </span>
+        {/* Hiển thị ảnh */}
+        <motion.div
+          className="grid gap-4 md:gap-8 sm:grid-cols-2 md:grid-cols-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+        >
+          {chapterImages.slice(currentPage, currentPage + pagesPerPage).map((img) => (
+            <motion.div
+              key={img.id}
+              className="relative"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.25, delay: img.id * 0.1 }}
+            >
+              <LazyImage
+                src={img.url}
+                alt={`Page ${img.id}`}
+                className="max-h-[63vh] max-w-[27vw] shadow-lg rounded-lg object-contain"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Nút Next */}
+        <GazeButton
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={handleNextPage}
+          disabled={currentPage >= chapterImages.length - pagesPerPage}
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${
+            currentPage >= chapterImages.length - pagesPerPage
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:shadow-xl"
+          }active:scale-95`}
+        >
+          <AiOutlineRight />
+        </GazeButton>
+
       </motion.div>
 
       {/* Nút quay lại */}
@@ -228,7 +225,8 @@ export default function ChapterDetail() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => router.back()}
-        className="absolute bottom-10 left-10 bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
+        className="bg-[#bfc6dc] text-[#293041] px-6 py-2 rounded-lg hover:bg-[#3f4759] hover:text-[#dbe2f9] shadow-lg"
+        style={{ width: "200px", height: "100px" }}
       >
         Back
       </GazeButton>

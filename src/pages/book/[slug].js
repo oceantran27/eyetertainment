@@ -14,7 +14,7 @@ export default function BookDetail() {
   const { slug } = router.query;
   const [book, setBook] = useState(null);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
-  const chaptersPerPage = 5;
+  const chaptersPerPage = 4;
 
   useEffect(() => {
     document.title = metadata.title;
@@ -87,15 +87,16 @@ export default function BookDetail() {
   const currentPage = Math.floor(currentChapterIndex / chaptersPerPage) + 1;
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex items-start space-x-6 my-6">
+    <div className="container mx-auto p-6 flex flex-col items-center justify-center h-screen">
+      <div className="flex items-start space-x-8 mb-16">
         <img
           src={`https://otruyenapi.com/uploads/comics/${book.thumb_url}`}
           alt={book.name}
-          className="w-1/6 h-auto object-cover rounded-lg shadow-lg"
+          className="w-1/4 h-auto object-cover rounded-lg shadow-lg"
+          style={{ maxWidth: "300px" }}
         />
 
-        <div className="flex-1">
+        <div className="flex-1 max-w-2xl">
           <h1 className="text-3xl font-bold mb-4 text-[#e2e2e9]">
             {book.name}
           </h1>
@@ -105,32 +106,30 @@ export default function BookDetail() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="flex items-center justify-center mb-16 space-x-8">
         {/* Nút Previous */}
         <GazeButton
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
           onClick={handlePrevious}
           disabled={currentChapterIndex === 0}
-          className={`absolute left-0 inset-y-16 transform bg-[#1e1f25] text-white  p-4 rounded-full shadow-lg ${
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${
             currentChapterIndex === 0
               ? "opacity-50 cursor-not-allowed"
-              : "hover:[#37393e]"
-          }`}
-          style={{ width: "60px", height: "60px" }}
+              : "hover:shadow-xl"
+          }active:scale-95`}
         >
-          <AiOutlineLeft size={30} />
+          <AiOutlineLeft/>
         </GazeButton>
 
         {/* Lưới chương */}
         <motion.div
-          className="grid mx-20 gap-4"
+          className="grid gap-4 md:gap-8 sm:grid-cols-2 md:grid-cols-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={{
-            gridTemplateColumns: `repeat(${chaptersPerPage}, 1fr)`,
-            gridAutoRows: "1fr",
+            gridTemplateColumns: `repeat(${chaptersPerPage}, 1fr)`
           }}
         >
           {chapters
@@ -140,16 +139,17 @@ export default function BookDetail() {
                 key={index}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-[#debcdf] text-[#402843] rounded-lg hover:bg-[#583e5b] hover:text-[#fcd7fb] text-3xl flex items-center justify-center shadow-lg"
+                className="bg-[#debcdf] text-[#402843] rounded-lg hover:bg-[#583e5b] hover:text-[#fcd7fb] text-2xl flex items-center justify-center shadow-lg "
                 style={{
-                  aspectRatio: "1",
+                  width: "200px",
+                  height: "100px"
                 }}
                 onClick={() => {
                   const chapterId = chapter.chapter_api_data.split("/").pop();
                   router.push(`/book/chapter/${chapterId}`);
                 }}
               >
-                {chapter.chapter_name}
+                Chap {chapter.chapter_name}
               </GazeButton>
             ))}
         </motion.div>
@@ -160,14 +160,13 @@ export default function BookDetail() {
           whileTap={{ scale: 0.9 }}
           onClick={handleNext}
           disabled={currentChapterIndex + chaptersPerPage >= chapters.length}
-          className={`absolute right-0 inset-y-16 transform bg-[#1e1f25] text-white p-4 rounded-full shadow-lg ${
+          className={`p-10 rounded-full bg-[#1e1f25] text-white text-5xl shadow-lg transform transition-transform duration-300 hover:scale-110 ${
             currentChapterIndex + chaptersPerPage >= chapters.length
               ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-[#37393e]"
-          }`}
-          style={{ width: "60px", height: "60px" }}
+              : "hover:shadow-xl"
+          }active:scale-95`}
         >
-          <AiOutlineRight size={30} />
+          <AiOutlineRight/>
         </GazeButton>
       </div>
 
