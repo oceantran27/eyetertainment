@@ -7,6 +7,7 @@ import styles from "@/styles/game.module.css";
 import RootLayout from "@/layouts/rootLayout";
 import { useEffect } from "react";
 import GazeButton from "@/components/gazeButton";
+import MainLayout from "@/components/mainLayout";
 
 export const metadata = {
   title: "Game | Eyetertainment",
@@ -21,16 +22,18 @@ const Game = () => {
 
   const customButtonProps = {
     left: {
-      onClick: () => handleOnClickBack(),
-    },
-    bottom: {
+      // onClick: () => handleOnClickBack(),
       className: "hidden",
       icon: null,
     },
-    top: {
-      className: "hidden",
-      icon: null,
-    },
+    // bottom: {
+    //   className: "hidden",
+    //   icon: null,
+    // },
+    // top: {
+    //   className: "hidden",
+    //   icon: null,
+    // },
     right: {
       className: "hidden",
       icon: null,
@@ -106,14 +109,15 @@ const Game = () => {
   };
 
   return (
-    <RootLayout buttonProps={customButtonProps}>
+    <MainLayout>
+    {/* <RootLayout buttonProps={customButtonProps}> */}
       <div className={styles.container}>
         {!selectedGame && (
-          <div className={styles.titleContainer}>Game World</div>
+          <div className={styles.titleContainer} style={{ marginTop: "80px" }}>Game World</div>
         )}
         {(selectedGame && renderGame()) || renderCard()}
       </div>
-    </RootLayout>
+    </MainLayout>
   );
 };
 

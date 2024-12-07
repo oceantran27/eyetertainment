@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import BookCard from "./bookCard";
 import GazeButton from "./gazeButton";
 import MainLayout from "./mainLayout";
+import RootLayout from "@/layouts/rootLayout";
 
 const BooksList = ({
   children,
