@@ -50,9 +50,9 @@ const targetUrl = {
 export default function CardWrapper() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 items-stretch justify-center mx-auto">
-      <Card title="Quiz" type="quiz" description="hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehehehe hehehehe"/>
-      <Card title="Reading" type="reading" description="hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehehehe hehehehe" />
-      <Card title="Game" type="game" description="hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehe hehehehe hehe hehe hehehehe hehehehehehe"/>
+      <Card title="Quiz" type="quiz" description="Test your knowledge with diverse quizzes across multiple categories"/>
+      <Card title="Reading" type="reading" description="Explore an immersive comic book experience with vibrant visuals and thrilling narratives" />
+      <Card title="Game" type="game" description="Experience exciting and interactive games tailored for eye-tracking control"/>
     </div>
   );
 }
