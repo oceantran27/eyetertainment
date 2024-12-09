@@ -1,6 +1,6 @@
 import Navbar from '@/components/NavBar';
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, resetGame }) => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
       {/* Gradient background */}
@@ -12,7 +12,7 @@ const MainLayout = ({ children }) => {
       </div>
 
       {/* Navbar */}
-      <Navbar />
+      <Navbar resetGame={resetGame}/>
       
       {children}
     </div>

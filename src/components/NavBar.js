@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import GazeButton from "@/components/gazeButton";
 
-const Navbar = () => {
+const Navbar = ({ resetGame }) => {
     const router = useRouter();
     const targetUrl = {
       home: "/dashboard",
@@ -11,6 +11,11 @@ const Navbar = () => {
     };
 
     const handleNavigation = (page) => {
+      if (page === "game") {
+        if (router.pathname === "/game" && resetGame) {
+          resetGame(); 
+        }
+      }
       router.push(targetUrl[page]);
     };
     

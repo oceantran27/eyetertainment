@@ -8,6 +8,7 @@ import RootLayout from "@/layouts/rootLayout";
 import { useEffect } from "react";
 import GazeButton from "@/components/gazeButton";
 import MainLayout from "@/components/mainLayout";
+import { useRouter } from 'next/router';
 
 export const metadata = {
   title: "Game | Eyetertainment",
@@ -15,10 +16,20 @@ export const metadata = {
 
 const Game = () => {
   const [selectedGame, setSelectedGame] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     document.title = metadata.title;
-  }, []);
+    if (!selectedGame) {
+      if (resetGame) {
+        resetGame(); 
+      }
+    }
+  }, [[router.pathname]]);
+
+  const resetGame = () => {
+    setSelectedGame(null);
+  };
 
   const customButtonProps = {
     left: {
@@ -109,7 +120,7 @@ const Game = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout resetGame={resetGame}>
     {/* <RootLayout buttonProps={customButtonProps}> */}
       <div className={styles.container}>
         {!selectedGame && (
