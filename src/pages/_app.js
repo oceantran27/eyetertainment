@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
   return (
     // <GazeDataProvider>
     <Component {...pageProps} />
+    //{" "}
     // </GazeDataProvider>
   );
 }

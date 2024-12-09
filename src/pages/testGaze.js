@@ -1,13 +1,31 @@
 import React from "react";
 import { useGazeData } from "@/hooks/GazeContext";
-import HoverButton from "@/components/tmp";
+import useSpeechRecognition from "@/hooks/useSpeechRecognition";
 
 function DisplayGaze() {
-  const gazeData = useGazeData();
+  const {
+    text,
+    isListening,
+    startListening,
+    stopListening,
+    hasRecognitionSupport,
+  } = useSpeechRecognition();
 
   return (
-    <div>
-      <HoverButton />
+    <div style={{ color: "white" }}>
+      {hasRecognitionSupport ? (
+        <>
+          <button onClick={startListening}>Start Listening</button>
+
+          {isListening ? (
+            <div>
+              <p>Listening...</p>
+            </div>
+          ) : null}
+        </>
+      ) : (
+        <>WHY NOTHING</>
+      )}
     </div>
   );
 }
