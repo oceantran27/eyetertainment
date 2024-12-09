@@ -1,70 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function HoverButton({ onClick, className, icon, style }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [progress, setProgress] = useState(0);
+export default function VoiceToText() {
+  const [text, setText] = useState("");
+  const [isListening, setIsListening] = useState(false);
 
-  useEffect(() => {
-    let timer;
-    if (isHovered) {
-      let elapsedTime = 0;
-      timer = setInterval(() => {
-        elapsedTime += 50;
-        setProgress((elapsedTime / 1500) * 100);
+  const startListening = () => {
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
 
-        if (elapsedTime >= 1500) {
-          clearInterval(timer);
-          handleHoverActivate();
-        }
-      }, 50);
+      recognition.lang = "vi-VN"; // Cấu hình ngôn ngữ (ví dụ: tiếng Việt)
+      recognition.continuous = false; // Lắng nghe từng câu một
+      recognition.interimResults = false; // Chỉ trả về kết quả hoàn chỉnh
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript; // Văn bản đã nhận diện
+        setText(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+      };
+
+      recognition.start(); // Bắt đầu lắng nghe
     } else {
-      clearInterval(timer);
-      setProgress(0);
+      alert("Trình duyệt của bạn không hỗ trợ Web Speech API!");
     }
-
-    return () => clearInterval(timer);
-  }, [isHovered]);
-
-  const handleHoverActivate = () => {
-    onClick();
   };
 
   return (
-    <div style={{ position: "relative", width: "200px", height: "50px" }}>
+    <div color="white">
+      <h1>Voice to Text</h1>
       <button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={onClick}
-        style={{
-          ...style,
-          width: "100%",
-          height: "100%",
-          position: "relative",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          fontSize: "16px",
-          border: "none",
-          borderRadius: "5px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-        }}
-        className={className}
+        onClick={startListening}
+        style={{ cursor: "pointer", background: "blue", color: "white" }}
       >
-        {icon}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            width: `${progress}%`,
-            height: "5px",
-            backgroundColor: "#adc6ff",
-            transition: "width 0.05s ease-out",
-          }}
-        />
+        {isListening ? "Đang nghe..." : "Bắt đầu nói"}
       </button>
+      <p>Kết quả: {text}</p>
     </div>
   );
 }

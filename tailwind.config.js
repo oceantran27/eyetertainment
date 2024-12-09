@@ -13,9 +13,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        // background: "var(--background)",
+        // foreground: "var(--foreground)",
         "black-opacity-30": "rgba(0, 0, 0, 0.3)",
+        "pastel-yellow": "#f9e8a2", // Màu pastel yellow cho ứng dụng
       },
     },
   },
