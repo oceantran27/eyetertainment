@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GazeButton from "@/components/gazeButton";
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -43,7 +44,7 @@ function Login() {
     },
     {
       id: "5",
-      fullName: "Trang Vuong",
+      fullName: "Phan Duong",
       picture: "5/avatar.jpg",
     },
   ];
@@ -115,6 +116,8 @@ function Login() {
 
   const scanFace = async () => {
     faceapi.matchDimensions(canvasRef.current, videoRef.current);
+    let failedAttempts = 0; // Bộ đếm số lần không nhận diện được khuôn mặt
+    const maxFailedAttempts = 50; // Ngưỡng để chuyển hướng
     const faceApiInterval = setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(videoRef.current)
@@ -141,9 +144,16 @@ function Login() {
       faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
       faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
 
+
       if (results.length > 0 && tempAccount.id === results[0].label) {
         setLoginResult("SUCCESS");
+        failedAttempts = 0; // Đặt lại bộ đếm khi nhận diện thành công
       } else {
+        failedAttempts++;
+        if (failedAttempts >= maxFailedAttempts) {
+          clearInterval(faceApiInterval);
+          router.push("/register"); // Chuyển hướng đến trang đăng ký
+        }
         setLoginResult("FAILED");
       }
 
@@ -194,11 +204,11 @@ function Login() {
       <div className="min-h-screen flex flex-col items-center justify-center gap-[24px] max-w-[840px] mx-auto">
         <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#ffb4ab] sm:text-4xl">
           <span className="block">
-            Upps! There is no profile picture associated with this account.
+            It seems this account doesn't have a profile picture
           </span>
         </h2>
         <span className="block mt-4 text-[#e2e2e9] text-2xl">
-          Please contact administration for registration or try again later.
+          Please reach out to the administration for registration or try again later.
         </span>
         <Link href="/register">
           <div className="rounded-xl p-2">
@@ -220,7 +230,7 @@ function Login() {
         {!localUserStream && !modelsLoaded && (
           <h2 className="max-w-[720px] text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] pt-10 sm:text-4xl">
             <span className="block">
-              You're Attempting to Log In With Your Face
+              We are trying to log in using your face.
             </span>
             <span className="block text-[#adc6ff] mt-2">Loading Models...</span>
           </h2>
@@ -228,30 +238,31 @@ function Login() {
         {!localUserStream && modelsLoaded && (
           <h2 className="max-w-[720px] text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] pt-10 sm:text-4xl">
             <span className="block text-[#adc6ff] mt-2">
-              Please Recognize Your Face to Completely Log In
+            Please recognize your face to complete the login process
             </span>
           </h2>
         )}
         {localUserStream && loginResult === "SUCCESS" && (
           <h2 className="max-w-[720px] text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl">
             <span className="block text-[#adc6ff] mt-2">
-              We've successfully recognize your face!
+              We've successfully recognized your face!
             </span>
             <span className="block text-[#adc6ff] mt-2">
-              Please stay {counter} more seconds...
+              Please stay for {counter} more seconds..."
             </span>
           </h2>
         )}
         {localUserStream && loginResult === "FAILED" && (
           <h2 className="max-w-[720px] text-center text-3xl font-extrabold tracking-tight text-[#ffb4ab] sm:text-4xl">
             <span className="block mt-[56px]">
-              Oops! We did not recognize your face
+              Oops! We failed to identify your face. 
+              You will be directed to the sign-up page.
             </span>
           </h2>
         )}
         {localUserStream && !faceApiLoaded && loginResult === "PENDING" && (
           <h2 className="max-w-[720px] text-center text-3xl font-extrabold tracking-tight text-[#adc6ff] sm:text-4xl">
-            <span className="block mt-[56px]">Scanning Face...</span>
+            <span className="block mt-[56px]">Scanning face...</span>
           </h2>
         )}
         <div className="max-w-[720px] my-5">
@@ -287,13 +298,13 @@ function Login() {
                     src="/images/auth-face.png"
                     className="cursor-pointer my-8 mx-auto object-cover h-[300px]"
                   />
-                  <button
+                  <GazeButton
                     onClick={getLocalUserVideo}
                     type="button"
                     className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-lg text-[#112f60] bg-[#adc6ff] hover:bg-[#2b4678] hover:text-[#d8e2ff] rounded-lg "
                   >
                     Scan my face
-                  </button>
+                  </GazeButton>
                 </>
               ) : (
                 <>
@@ -324,7 +335,7 @@ function Login() {
                         fill="#1C64F2"
                       />
                     </svg>
-                    Please wait while models were loading...
+                    Please wait while the models are loading...
                   </button>
                 </>
               )}
